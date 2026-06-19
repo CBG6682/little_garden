@@ -1,15 +1,16 @@
 {
-  "short_name": "Little Garden",
-  "name": "Little Garden - Virtual Pet & Plant Simulator",
+  "name": "Little Garden",
+  "short_name": "Garden",
   "icons": [
     {
       "src": "little_garden.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "sizes": "64x64 192x192 512x512 any",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/little_garden/",
   "display": "standalone",
-  "theme_color": "#FF85A2",
-  "background_color": "#FFF5F7"
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
 }
