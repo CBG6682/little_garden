@@ -1,0 +1,757 @@
+.plant-container {
+  position: relative;
+  width: 120px;
+  height: 150px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* The Pot */
+.pot-back, .pot-front {
+  position: absolute;
+  bottom: 0;
+  width: 80px;
+  height: 50px;
+  background-color: #E68A6B;
+  border-radius: 5px 5px 20px 20px;
+}
+
+.pot-front {
+  z-index: 10;
+  box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
+  clip-path: polygon(0 20%, 100% 20%, 100% 100%, 0 100%);
+}
+
+.pot-back {
+  background-color: #C76B4D;
+  z-index: 1;
+}
+
+.soil {
+  position: absolute;
+  bottom: 40px;
+  width: 70px;
+  height: 15px;
+  background-color: #5C4033;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* Plant Wrapper & Growth Animation */
+.plant-wrapper {
+  position: absolute;
+  bottom: 45px;
+  width: 100%;
+  height: 100px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  transform-origin: bottom center;
+}
+
+@keyframes popScale {
+  0% { transform: scale(0.5); }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.plant-wrapper.growing {
+  animation: popScale 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Sway Animation for the whole plant body */
+@keyframes sway {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+}
+
+.plant-body, .sprout-stem {
+  transform-origin: bottom center;
+  animation: sway 6s infinite ease-in-out;
+}
+
+/* Water Droplets */
+.water-droplets {
+  position: absolute;
+  top: -60px;
+  width: 100%;
+  height: 150px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.drop {
+  position: absolute;
+  width: 6px;
+  height: 10px;
+  background-color: rgba(110, 181, 255, 0.8);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation: fall 0.5s linear infinite;
+}
+
+.d1 { left: 30%; animation-delay: 0s; }
+.d2 { left: 50%; animation-delay: 0.2s; }
+.d3 { left: 70%; animation-delay: 0.1s; }
+.d4 { left: 40%; animation-delay: 0.3s; }
+
+@keyframes fall {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(120px) scale(0.5); opacity: 0; }
+}
+
+/* Seed */
+.seed-asset {
+  width: 10px;
+  height: 8px;
+  background-color: #8B5A2B;
+  border-radius: 50%;
+  transform: translateY(5px);
+}
+
+/* Sprout */
+.sprout-stem {
+  width: 4px;
+  height: 20px;
+  background-color: var(--green, #7BC67E);
+  position: relative;
+}
+.sprout-leaf {
+  position: absolute;
+  width: 12px;
+  height: 8px;
+  background-color: var(--green, #7BC67E);
+  border-radius: 0 10px 0 10px;
+  top: -2px;
+}
+.sprout-leaf.left { left: -10px; transform: rotate(-30deg); }
+.sprout-leaf.right { right: -10px; border-radius: 10px 0 10px 0; transform: rotate(30deg); }
+
+/* Sen đá hồng sao (Pink Star Succulent) */
+.succulent {
+  position: relative;
+  width: 60px;
+  height: 40px;
+}
+.petal {
+  position: absolute;
+  width: 20px;
+  height: 35px;
+  background: linear-gradient(to top, #7BC67E, #FF85A2);
+  border-radius: 50% 50% 10px 10px;
+  bottom: 0;
+  left: 20px;
+  transform-origin: bottom center;
+}
+.p1 { transform: rotate(-60deg); }
+.p2 { transform: rotate(-30deg); }
+.p3 { transform: rotate(0deg); }
+.p4 { transform: rotate(30deg); }
+.p5 { transform: rotate(60deg); }
+.p6 { transform: rotate(90deg); left: 10px; }
+.petal.center { width: 15px; height: 25px; left: 22.5px; z-index: 2; background: #FF85A2; }
+
+@keyframes pulse-star {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.3) rotate(15deg); }
+}
+.flower-star { position: absolute; top: -15px; left: 22px; font-size: 16px; z-index: 3; animation: pulse-star 3s infinite; }
+
+/* Cây kim tiền (ZZ Plant) */
+.zz-plant { position: relative; width: 80px; height: 80px; }
+.stem { position: absolute; width: 4px; background: #2E7D32; bottom: 0; border-radius: 2px; }
+.s1 { height: 70px; left: 30px; transform: rotate(-15deg); }
+.s2 { height: 60px; left: 45px; transform: rotate(15deg); }
+.s3 { height: 40px; left: 40px; transform: rotate(5deg); }
+
+.leaf {
+  position: absolute;
+  width: 15px;
+  height: 10px;
+  background: #4CAF50;
+  border-radius: 10px 0 10px 0;
+}
+.s1 .l1 { top: 10px; left: -12px; transform: rotate(-40deg); }
+.s1 .l2 { top: 25px; right: -12px; border-radius: 0 10px 0 10px; transform: rotate(40deg); }
+.s1 .l3 { top: 40px; left: -12px; transform: rotate(-40deg); }
+.s1 .l4 { top: 55px; right: -12px; border-radius: 0 10px 0 10px; transform: rotate(40deg); }
+
+.s2 .l1 { top: 10px; left: -12px; transform: rotate(-40deg); }
+.s2 .l2 { top: 25px; right: -12px; border-radius: 0 10px 0 10px; transform: rotate(40deg); }
+.s2 .l3 { top: 40px; left: -12px; transform: rotate(-40deg); }
+.s2 .l4 { top: 55px; right: -12px; border-radius: 0 10px 0 10px; transform: rotate(40deg); }
+
+.s3 .l1 { top: 10px; left: -12px; transform: rotate(-40deg); }
+.s3 .l2 { top: 20px; right: -12px; border-radius: 0 10px 0 10px; transform: rotate(40deg); }
+
+/* Cây lưỡi hổ (Snake Plant) */
+.snake-plant { position: relative; width: 50px; height: 90px; }
+.blade {
+  position: absolute;
+  bottom: 0;
+  width: 12px;
+  background: linear-gradient(to top, #1B5E20, #4CAF50);
+  border-radius: 10px 10px 0 0;
+  border: 2px solid #FBC02D;
+  border-bottom: none;
+}
+.b1 { height: 80px; left: 10px; transform: rotate(-10deg); }
+.b2 { height: 90px; left: 20px; z-index: 2; }
+.b3 { height: 70px; left: 30px; transform: rotate(10deg); }
+.b4 { height: 60px; left: 0px; transform: rotate(-20deg); }
+.b5 { height: 65px; left: 40px; transform: rotate(20deg); }
+
+
+/* Cay Phat Tai (Lucky Bamboo) */
+.bamboo { position: relative; width: 60px; height: 100px; }
+.bamboo-stalk { position: absolute; bottom: 0; width: 10px; height: 100px; background: repeating-linear-gradient(to top, #4CAF50, #4CAF50 15px, #2E7D32 15px, #2E7D32 17px); border-radius: 5px; }
+.bs1 { left: 10px; height: 90px; }
+.bs2 { left: 25px; height: 110px; }
+.bs3 { left: 40px; height: 70px; }
+.bamboo-leaf { position: absolute; width: 25px; height: 8px; background: #81C784; border-radius: 10px 0 10px 0; }
+.bs1 .bamboo-leaf:nth-child(1) { top: 20px; left: -15px; transform: rotate(-30deg); }
+.bs1 .bamboo-leaf:nth-child(2) { top: 40px; right: -15px; border-radius: 0 10px 0 10px; transform: rotate(30deg); }
+.bs2 .bamboo-leaf:nth-child(1) { top: 30px; left: -15px; transform: rotate(-30deg); }
+.bs2 .bamboo-leaf:nth-child(2) { top: 60px; right: -15px; border-radius: 0 10px 0 10px; transform: rotate(30deg); }
+.bs3 .bamboo-leaf:nth-child(1) { top: 25px; right: -15px; border-radius: 0 10px 0 10px; transform: rotate(30deg); }
+.bamboo-ribbon { position: absolute; bottom: 30px; left: 5px; width: 50px; height: 8px; background: #E53935; border-radius: 4px; z-index: 5; }
+
+/* Sen Da Do La (Portulacaria Afra / Elephant Bush) */
+.dola { position: relative; width: 80px; height: 90px; }
+.dola-stem { position: absolute; bottom: 0; background: #8D6E63; border-radius: 3px; }
+.ds-main { left: 35px; width: 6px; height: 80px; }
+.ds-branch1 { left: 18px; bottom: 30px; width: 4px; height: 40px; transform: rotate(-30deg); }
+.ds-branch2 { right: 18px; bottom: 40px; width: 4px; height: 35px; transform: rotate(40deg); }
+.dola-leaf { position: absolute; width: 14px; height: 14px; background: #66BB6A; border-radius: 50%; box-shadow: inset -2px -2px 0 rgba(0,0,0,0.1); }
+.ds-main .dl1 { top: -5px; left: -4px; }
+.ds-main .dl2 { top: 15px; left: -10px; }
+.ds-main .dl3 { top: 35px; right: -10px; }
+.ds-main .dl4 { top: 50px; left: -8px; }
+.ds-branch1 .dl1 { top: -5px; left: -5px; }
+.ds-branch1 .dl2 { top: 10px; left: -10px; }
+.ds-branch2 .dl1 { top: -5px; left: -5px; }
+.ds-branch2 .dl2 { top: 10px; right: -10px; }
+
+/* Cay Van Loc (Aglaonema) */
+.vanloc { position: relative; width: 80px; height: 90px; }
+.vl-leaf { position: absolute; bottom: 0; width: 25px; height: 60px; background: radial-gradient(ellipse at center, #FF5252 40%, #4CAF50 80%); border-radius: 50% 50% 10px 10px; transform-origin: bottom center; border: 1px solid #2E7D32; box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1); }
+.vl1 { left: 27px; height: 80px; z-index: 3; }
+.vl2 { left: 15px; height: 65px; transform: rotate(-25deg); z-index: 2; }
+.vl3 { right: 15px; height: 65px; transform: rotate(25deg); z-index: 2; }
+.vl4 { left: 0px; height: 45px; transform: rotate(-50deg); z-index: 1; }
+.vl5 { right: 0px; height: 50px; transform: rotate(50deg); z-index: 1; }
+
+
+/* ====================================================================
+   NEW SPECIES
+   ==================================================================== */
+
+/* ===== Cây Trầu Bà Đế Vương (Imperial Philodendron) ===== */
+.trau-ba {
+  position: relative;
+  width: 80px;
+  height: 90px;
+}
+.tb-stem {
+  position: absolute;
+  bottom: 0;
+  left: 37px;
+  width: 6px;
+  height: 50px;
+  background: linear-gradient(to top, #2E7D32, #43A047);
+  border-radius: 3px;
+}
+.tb-leaf {
+  position: absolute;
+  bottom: 0;
+  width: 30px;
+  height: 45px;
+  background: linear-gradient(135deg, #1B5E20 0%, #4CAF50 40%, #6D1B3A 100%);
+  border-radius: 50% 50% 5px 5px;
+  transform-origin: bottom center;
+  box-shadow: inset -3px -3px 6px rgba(0,0,0,0.15);
+}
+/* Center vein on leaves */
+.tb-leaf::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 70%;
+  background: rgba(255,255,255,0.2);
+  border-radius: 1px;
+}
+.tbl1 { left: 25px; height: 65px; z-index: 3; }
+.tbl2 { left: 8px; height: 50px; transform: rotate(-25deg); z-index: 2; }
+.tbl3 { right: 8px; height: 50px; transform: rotate(25deg); z-index: 2; }
+.tbl4 { left: -2px; height: 40px; transform: rotate(-45deg); z-index: 1; }
+.tbl5 { right: -2px; height: 40px; transform: rotate(45deg); z-index: 1; }
+
+
+/* ===== Cây Thiết Mộc Lan (Dracaena / Money Tree) ===== */
+.thiet-moc-lan {
+  position: relative;
+  width: 80px;
+  height: 95px;
+}
+.tml-trunk {
+  position: absolute;
+  bottom: 0;
+  left: 33px;
+  width: 14px;
+  height: 55px;
+  background: linear-gradient(to right, #6D4C41, #8D6E63, #5D4037);
+  border-radius: 4px;
+  box-shadow: inset 2px 0 4px rgba(0,0,0,0.2);
+}
+/* Bark texture */
+.tml-trunk::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 8px,
+    rgba(0,0,0,0.08) 8px,
+    rgba(0,0,0,0.08) 10px
+  );
+  border-radius: 4px;
+}
+.tml-leaf {
+  position: absolute;
+  width: 8px;
+  height: 45px;
+  background: linear-gradient(to right, #2E7D32 0%, #66BB6A 50%, #2E7D32 100%);
+  border-radius: 4px 4px 2px 2px;
+  transform-origin: bottom center;
+  top: -5px;
+}
+/* Yellow stripe down center of leaves */
+.tml-leaf::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5px;
+  height: 75%;
+  background: rgba(255,235,59,0.4);
+  border-radius: 1px;
+}
+.tmll1 { left: 36px; height: 55px; z-index: 3; }
+.tmll2 { left: 26px; height: 45px; transform: rotate(-20deg); z-index: 2; }
+.tmll3 { left: 46px; height: 45px; transform: rotate(20deg); z-index: 2; }
+.tmll4 { left: 18px; height: 38px; transform: rotate(-40deg); z-index: 1; }
+.tmll5 { left: 54px; height: 38px; transform: rotate(40deg); z-index: 1; }
+.tmll6 { left: 36px; height: 48px; transform: rotate(-8deg); z-index: 4; }
+
+
+/* ===== Cây Hoa Quỳnh (Night-blooming Cereus) ===== */
+.hoa-quynh {
+  position: relative;
+  width: 70px;
+  height: 90px;
+}
+.hq-pad {
+  position: absolute;
+  bottom: 0;
+  background: linear-gradient(to top, #2E7D32, #66BB6A);
+  border-radius: 40% 40% 10% 10%;
+  border: 1px solid #1B5E20;
+}
+/* Speckle dots on cactus pads */
+.hq-pad::before, .hq-pad::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 50%;
+}
+.hq-pad::before { top: 30%; left: 30%; }
+.hq-pad::after  { top: 60%; right: 30%; }
+
+.hq1 { left: 22px; width: 26px; height: 50px; z-index: 2; }
+.hq2 { left: 10px; width: 20px; height: 35px; transform: rotate(-15deg); z-index: 1; bottom: 15px; }
+.hq3 { right: 10px; width: 20px; height: 35px; transform: rotate(15deg); z-index: 1; bottom: 15px; }
+.hq4 { left: 28px; width: 18px; height: 28px; bottom: 45px; z-index: 3; }
+
+/* Night bloom flower */
+.hq-flower {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  z-index: 10;
+  animation: bloomOpen 2s ease-out forwards;
+}
+.hq-petal {
+  position: absolute;
+  width: 12px;
+  height: 22px;
+  background: linear-gradient(to top, #F8BBD0, #FFFFFF);
+  border-radius: 50%;
+  bottom: 10px;
+  left: 14px;
+  transform-origin: bottom center;
+  box-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+.hqp1 { transform: rotate(-40deg); }
+.hqp2 { transform: rotate(-20deg); }
+.hqp3 { transform: rotate(0deg); }
+.hqp4 { transform: rotate(20deg); }
+.hqp5 { transform: rotate(40deg); }
+.hq-center {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle, #FFEB3B, #FFC107);
+  border-radius: 50%;
+  z-index: 11;
+  box-shadow: 0 0 12px rgba(255,235,59,0.6);
+}
+
+@keyframes bloomOpen {
+  0% { transform: translateX(-50%) scale(0); opacity: 0; }
+  50% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+  100% { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+/* Glow effect when blooming */
+.hoa-quynh.blooming .hq-flower {
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.7));
+}
+.hoa-quynh.blooming::after {
+  content: '✨';
+  position: absolute;
+  top: -30px;
+  right: 5px;
+  font-size: 14px;
+  animation: twinkleBloom 1.5s infinite alternate;
+  z-index: 12;
+}
+@keyframes twinkleBloom {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.2); }
+}
+
+
+/* ====================================================================
+   POT SKINS
+   ==================================================================== */
+
+/* ===== GOLD POT SKIN ===== */
+.gold-pot-skin .pot-back,
+.gold-pot-skin .pot-front {
+  background: linear-gradient(135deg, #FFD700, #FFA000, #FFD700);
+  box-shadow: inset 0 -5px 10px rgba(0,0,0,0.15), 0 2px 8px rgba(255,215,0,0.4);
+}
+.gold-pot-skin .pot-back {
+  background: linear-gradient(135deg, #E6A800, #CC8400);
+}
+
+/* ===== BÁT TRÀNG CERAMIC POT ===== */
+.bat-trang-pot-skin .pot-back,
+.bat-trang-pot-skin .pot-front {
+  background: linear-gradient(to bottom, #E8E8E8, #D4D4D4);
+  border: 2px solid #B0BEC5;
+  box-shadow: inset 0 -5px 10px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.1);
+}
+.bat-trang-pot-skin .pot-front::before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  width: 80%;
+  height: 50%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 8px,
+    #1565C0 8px,
+    #1565C0 10px
+  );
+  opacity: 0.3;
+  border-radius: 0 0 15px 15px;
+}
+/* Decorative blue pattern lines */
+.bat-trang-pot-skin .pot-front::after {
+  content: '';
+  position: absolute;
+  bottom: 15%;
+  left: 15%;
+  width: 70%;
+  height: 3px;
+  background: #1565C0;
+  opacity: 0.4;
+  border-radius: 2px;
+  box-shadow: 0 -10px 0 rgba(21,101,192,0.3);
+}
+.bat-trang-pot-skin .pot-back {
+  background: linear-gradient(135deg, #BDBDBD, #9E9E9E);
+}
+
+/* ===== MARBLE POT ===== */
+.marble-pot-skin .pot-back,
+.marble-pot-skin .pot-front {
+  background: linear-gradient(135deg, #ECEFF1, #F5F5F5, #CFD8DC, #ECEFF1);
+  box-shadow: inset 0 -5px 10px rgba(0,0,0,0.06), 0 3px 10px rgba(0,0,0,0.12);
+  border: 1px solid #B0BEC5;
+}
+/* Marble veining */
+.marble-pot-skin .pot-front::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: 
+    linear-gradient(65deg, transparent 40%, rgba(120,120,120,0.08) 42%, transparent 44%),
+    linear-gradient(125deg, transparent 50%, rgba(120,120,120,0.06) 52%, transparent 54%),
+    linear-gradient(85deg, transparent 30%, rgba(120,120,120,0.05) 32%, transparent 34%);
+  border-radius: 0 0 15px 15px;
+}
+.marble-pot-skin .pot-back {
+  background: linear-gradient(135deg, #B0BEC5, #90A4AE);
+}
+
+
+/* ====================================================================
+   GROW LIGHT — position controlled by inline style (top) per stage
+   ==================================================================== */
+.grow-light {
+  position: absolute;
+  /* top is set dynamically via inline style */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  pointer-events: none;
+  transition: top 0.6s ease;
+}
+.grow-light-lamp {
+  width: 30px;
+  height: 8px;
+  background: linear-gradient(to bottom, #333, #555);
+  border-radius: 4px;
+  margin: 0 auto;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.grow-light-beam {
+  width: 50px;
+  height: 120px;
+  margin: 0 auto;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 215, 0, 0.35),
+    rgba(255, 215, 0, 0.1),
+    transparent
+  );
+  clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* ====================================================================
+   DEAD PLANT STATE
+   ==================================================================== */
+.is-dead .plant-wrapper {
+  filter: grayscale(0.7) brightness(0.6);
+}
+
+.dead-plant {
+  position: relative;
+  width: 60px;
+  height: 70px;
+  transform: rotate(35deg);
+  transform-origin: bottom center;
+}
+.dead-stem {
+  position: absolute;
+  bottom: 0;
+  left: 27px;
+  width: 5px;
+  height: 50px;
+  background: linear-gradient(to top, #5D4037, #795548);
+  border-radius: 2px;
+}
+.dead-plant .dead-leaf {
+  position: absolute;
+  width: 18px;
+  height: 12px;
+  background: linear-gradient(135deg, #6D4C41, #4E342E);
+  border-radius: 8px 2px 8px 2px;
+  transform-origin: bottom right;
+}
+.dead-plant .dl1 { top: 5px; left: 10px; transform: rotate(-40deg) scaleY(0.7); }
+.dead-plant .dl2 { top: 20px; right: 5px; transform: rotate(30deg) scaleY(0.6); border-radius: 2px 8px 2px 8px; }
+.dead-plant .dl3 { top: 35px; left: 8px; transform: rotate(-25deg) scaleY(0.5); }
+
+/* ====================================================================
+   12 NEW VIETNAMESE SPECIES
+   ==================================================================== */
+
+/* ===== Tùng Bồng Lai — dense green cloud shapes ===== */
+.tung-bong-lai { position: relative; width: 80px; height: 95px; }
+.tbl-trunk { position: absolute; bottom: 0; left: 36px; width: 8px; height: 65px; background: linear-gradient(to right, #5D4037, #795548, #5D4037); border-radius: 3px; }
+.tbl-cloud { position: absolute; background: radial-gradient(ellipse, #2E7D32 30%, #1B5E20 100%); border-radius: 50%; box-shadow: inset -3px -3px 6px rgba(0,0,0,0.15); }
+.tc1 { width: 40px; height: 28px; top: 0; left: 20px; z-index: 3; }
+.tc2 { width: 30px; height: 22px; top: 15px; left: 5px; z-index: 2; }
+.tc3 { width: 30px; height: 22px; top: 15px; right: 5px; z-index: 2; }
+.tc4 { width: 25px; height: 18px; top: -8px; left: 28px; z-index: 4; }
+
+/* ===== Hạnh Phúc Mini — bushy bright leaves ===== */
+.hanh-phuc { position: relative; width: 80px; height: 85px; }
+.hp-stem { position: absolute; bottom: 0; left: 37px; width: 5px; height: 40px; background: #43A047; border-radius: 2px; }
+.hp-leaf { position: absolute; bottom: 0; width: 22px; height: 40px; background: linear-gradient(to top, #66BB6A, #AED581); border-radius: 50% 50% 8px 8px; transform-origin: bottom center; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.1); }
+.hpl1 { left: 28px; height: 60px; z-index: 3; }
+.hpl2 { left: 14px; height: 45px; transform: rotate(-22deg); z-index: 2; }
+.hpl3 { right: 14px; height: 45px; transform: rotate(22deg); z-index: 2; }
+.hpl4 { left: 5px; height: 35px; transform: rotate(-40deg); z-index: 1; }
+.hpl5 { right: 5px; height: 35px; transform: rotate(40deg); z-index: 1; }
+.hpl6 { left: 30px; height: 50px; transform: rotate(-5deg); z-index: 4; }
+
+/* ===== Kim Ngân Lượng — red berries ===== */
+.kim-ngan { position: relative; width: 80px; height: 90px; }
+.kn-trunk { position: absolute; bottom: 0; left: 35px; width: 8px; height: 55px; background: linear-gradient(to right, #5D4037, #8D6E63); border-radius: 3px; }
+.kn-leaf { position: absolute; width: 20px; height: 35px; background: linear-gradient(to top, #1B5E20, #388E3C); border-radius: 50% 50% 5px 5px; transform-origin: bottom center; }
+.knl1 { top: 5px; left: 28px; height: 40px; z-index: 2; }
+.knl2 { top: 15px; left: 12px; height: 30px; transform: rotate(-25deg); }
+.knl3 { top: 15px; right: 12px; height: 30px; transform: rotate(25deg); }
+.knl4 { top: 0; left: 30px; height: 35px; transform: rotate(-8deg); z-index: 3; }
+.kn-berry { position: absolute; width: 10px; height: 10px; background: radial-gradient(circle at 30% 30%, #EF5350, #C62828); border-radius: 50%; box-shadow: inset -1px -1px 2px rgba(0,0,0,0.2), 0 1px 3px rgba(0,0,0,0.15); z-index: 5; }
+.kb1 { top: 8px; left: 42px; }
+.kb2 { top: 18px; right: 18px; }
+.kb3 { top: 2px; left: 35px; }
+.kb4 { top: 12px; left: 20px; }
+
+/* ===== Đuôi Công — striped ovals with purple ===== */
+.duoi-cong { position: relative; width: 80px; height: 90px; }
+.dc-leaf { position: absolute; bottom: 0; width: 22px; height: 65px; background: linear-gradient(135deg, #1B5E20 0%, #4CAF50 30%, #7B1FA2 70%, #4A148C 100%); border-radius: 50% 50% 8px 8px; transform-origin: bottom center; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15); }
+.dc-leaf::after { content: ''; position: absolute; top: 15%; left: 30%; width: 40%; height: 60%; background: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(255,255,255,0.12) 4px, rgba(255,255,255,0.12) 6px); border-radius: 50%; }
+.dcl1 { left: 28px; height: 75px; z-index: 3; }
+.dcl2 { left: 12px; height: 58px; transform: rotate(-20deg); z-index: 2; }
+.dcl3 { right: 12px; height: 58px; transform: rotate(20deg); z-index: 2; }
+.dcl4 { left: 2px; height: 42px; transform: rotate(-40deg); z-index: 1; }
+.dcl5 { right: 2px; height: 42px; transform: rotate(40deg); z-index: 1; }
+
+/* ===== Bàng Singapore Mini — broad dark leaves ===== */
+.bang-sg { position: relative; width: 80px; height: 90px; }
+.bs-trunk { position: absolute; bottom: 0; left: 35px; width: 8px; height: 50px; background: linear-gradient(to right, #4E342E, #6D4C41); border-radius: 3px; }
+.bs-leaf { position: absolute; bottom: 0; width: 30px; height: 50px; background: linear-gradient(to top, #1B5E20, #2E7D32); border-radius: 5px 50% 5px 50%; transform-origin: bottom center; box-shadow: inset -3px -3px 5px rgba(0,0,0,0.15); }
+.bs-leaf::after { content: ''; position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); width: 2px; height: 70%; background: rgba(255,255,255,0.15); border-radius: 1px; }
+.bsl1 { left: 23px; height: 65px; z-index: 3; }
+.bsl2 { left: 5px; height: 48px; transform: rotate(-25deg); z-index: 2; }
+.bsl3 { right: 5px; height: 48px; transform: rotate(25deg); z-index: 2; }
+.bsl4 { left: -2px; height: 38px; transform: rotate(-45deg); z-index: 1; }
+.bsl5 { right: -2px; height: 38px; transform: rotate(45deg); z-index: 1; }
+
+/* ===== Hương Thảo (Rosemary) — needle-like leaves ===== */
+.huong-thao { position: relative; width: 70px; height: 85px; }
+.ht-stem { position: absolute; bottom: 0; width: 3px; background: #6D4C41; border-radius: 2px; }
+.ht-s1 { height: 70px; left: 30px; transform: rotate(-8deg); }
+.ht-s2 { height: 55px; left: 40px; transform: rotate(12deg); }
+.ht-s3 { height: 45px; left: 25px; transform: rotate(-18deg); }
+.ht-needle { position: absolute; width: 3px; height: 12px; background: linear-gradient(to top, #558B2F, #7CB342); border-radius: 1px 1px 0 0; }
+.ht-s1 .htn1 { top: 8px; left: -5px; transform: rotate(-45deg); }
+.ht-s1 .htn2 { top: 18px; right: -5px; transform: rotate(45deg); }
+.ht-s1 .htn3 { top: 28px; left: -5px; transform: rotate(-45deg); }
+.ht-s1 .htn4 { top: 38px; right: -5px; transform: rotate(45deg); }
+.ht-s2 .htn1 { top: 8px; left: -5px; transform: rotate(-45deg); }
+.ht-s2 .htn2 { top: 18px; right: -5px; transform: rotate(45deg); }
+.ht-s2 .htn3 { top: 28px; left: -5px; transform: rotate(-45deg); }
+
+/* ===== Dây Nhện — cascading thin striped leaves ===== */
+.day-nhen { position: relative; width: 80px; height: 85px; }
+.dn-leaf { position: absolute; bottom: 0; width: 6px; height: 70px; background: linear-gradient(to right, #4CAF50, #81C784, #4CAF50); border-radius: 3px 3px 1px 1px; transform-origin: bottom center; }
+.dn-leaf::after { content: ''; position: absolute; top: 5%; left: 35%; width: 30%; height: 85%; background: rgba(255,255,255,0.2); border-radius: 1px; }
+.dnl1 { left: 36px; height: 75px; z-index: 3; }
+.dnl2 { left: 25px; height: 65px; transform: rotate(-15deg); z-index: 2; }
+.dnl3 { right: 25px; height: 65px; transform: rotate(15deg); z-index: 2; }
+.dnl4 { left: 15px; height: 55px; transform: rotate(-30deg); z-index: 1; }
+.dnl5 { right: 15px; height: 55px; transform: rotate(30deg); z-index: 1; }
+.dnl6 { left: 8px; height: 50px; transform: rotate(-45deg); }
+.dnl7 { right: 8px; height: 50px; transform: rotate(45deg); }
+.dn-runner { position: absolute; bottom: 30px; width: 2px; height: 40px; background: #81C784; }
+.dnr1 { left: 5px; transform: rotate(20deg); transform-origin: top center; }
+.dn-baby { position: absolute; bottom: -5px; left: -5px; width: 12px; height: 12px; background: radial-gradient(#81C784, #4CAF50); border-radius: 50%; }
+
+/* ===== Trúc Phát Tài — segmented stalks ===== */
+.truc-pt { position: relative; width: 70px; height: 95px; }
+.tp-stalk { position: absolute; bottom: 0; width: 10px; background: repeating-linear-gradient(to top, #66BB6A, #66BB6A 12px, #43A047 12px, #43A047 14px); border-radius: 5px; }
+.tps1 { left: 20px; height: 85px; }
+.tps2 { left: 35px; height: 95px; }
+.tps3 { left: 50px; height: 65px; }
+.tp-top-leaf { position: absolute; width: 22px; height: 8px; background: #81C784; border-radius: 10px 0 10px 0; }
+.tptl1 { top: 8px; left: 5px; transform: rotate(-30deg); }
+.tptl2 { top: 0; left: 40px; border-radius: 0 10px 0 10px; transform: rotate(30deg); }
+.tptl3 { top: 25px; left: 55px; border-radius: 0 10px 0 10px; transform: rotate(25deg); }
+
+/* ===== Ngũ Gia Bì Mini — palmate leaf clusters ===== */
+.ngu-gia-bi { position: relative; width: 80px; height: 90px; }
+.ngb-stem { position: absolute; bottom: 0; left: 36px; width: 6px; height: 50px; background: #6D4C41; border-radius: 3px; }
+.ngb-cluster { position: absolute; display: flex; align-items: flex-end; gap: 0; }
+.ngbc1 { top: 0; left: 15px; }
+.ngbc2 { top: 20px; left: 5px; transform: rotate(-10deg); }
+.ngb-finger { width: 6px; height: 30px; background: linear-gradient(to top, #2E7D32, #66BB6A); border-radius: 3px 3px 1px 1px; transform-origin: bottom center; }
+.ngb-finger.f1 { transform: rotate(-40deg); height: 25px; }
+.ngb-finger.f2 { transform: rotate(-20deg); height: 30px; }
+.ngb-finger.f3 { height: 35px; }
+.ngb-finger.f4 { transform: rotate(20deg); height: 30px; }
+.ngb-finger.f5 { transform: rotate(40deg); height: 25px; }
+
+/* ===== Vạn Lộc (Lá Sọc) — pink and green variegated ===== */
+.van-loc-new { position: relative; width: 80px; height: 90px; }
+.vln-leaf { position: absolute; bottom: 0; width: 24px; height: 60px; background: linear-gradient(135deg, #E91E63 20%, #F48FB1 40%, #4CAF50 60%, #81C784 80%); border-radius: 50% 50% 8px 8px; transform-origin: bottom center; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.1); }
+.vlnl1 { left: 27px; height: 75px; z-index: 3; }
+.vlnl2 { left: 12px; height: 55px; transform: rotate(-22deg); z-index: 2; }
+.vlnl3 { right: 12px; height: 55px; transform: rotate(22deg); z-index: 2; }
+.vlnl4 { left: 0; height: 40px; transform: rotate(-45deg); z-index: 1; }
+.vlnl5 { right: 0; height: 40px; transform: rotate(45deg); z-index: 1; }
+
+/* ===== Thường Xuân (Ivy) — trailing vines ===== */
+.thuong-xuan { position: relative; width: 80px; height: 90px; }
+.tx-vine { position: absolute; top: 0; width: 2px; background: #558B2F; border-radius: 1px; }
+.txv1 { left: 35px; height: 80px; }
+.txv2 { left: 20px; height: 60px; transform: rotate(-15deg); transform-origin: top center; }
+.txv3 { right: 15px; height: 70px; transform: rotate(12deg); transform-origin: top center; }
+.tx-ivy-leaf { position: absolute; width: 14px; height: 14px; background: #4CAF50; clip-path: polygon(50% 0%, 100% 35%, 80% 100%, 50% 70%, 20% 100%, 0% 35%); }
+.txv1 .txil1 { top: 10px; left: -6px; }
+.txv1 .txil2 { top: 30px; right: -6px; }
+.txv1 .txil3 { top: 50px; left: -6px; }
+.txv2 .txil1 { top: 10px; left: -6px; }
+.txv2 .txil2 { top: 30px; right: -6px; }
+.txv3 .txil1 { top: 10px; right: -6px; }
+.txv3 .txil2 { top: 30px; left: -6px; }
+.txv3 .txil3 { top: 50px; right: -6px; }
+
+/* ===== Nhất Mạt Hương — scalloped leaves ===== */
+.nhat-mat-huong { position: relative; width: 80px; height: 85px; }
+.nmh-stem { position: absolute; bottom: 0; left: 36px; width: 5px; height: 45px; background: #43A047; border-radius: 2px; }
+.nmh-leaf { position: absolute; bottom: 0; width: 22px; height: 45px; background: linear-gradient(to top, #388E3C, #66BB6A); border-radius: 40% 40% 8px 8px; transform-origin: bottom center; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.1); }
+.nmh-leaf::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255,255,255,0.08) 0%, transparent 40%); border-radius: inherit; }
+.nmhl1 { left: 27px; height: 60px; z-index: 3; }
+.nmhl2 { left: 12px; height: 45px; transform: rotate(-22deg); z-index: 2; }
+.nmhl3 { right: 12px; height: 45px; transform: rotate(22deg); z-index: 2; }
+.nmhl4 { left: 2px; height: 35px; transform: rotate(-42deg); z-index: 1; }
+.nmhl5 { right: 2px; height: 35px; transform: rotate(42deg); z-index: 1; }

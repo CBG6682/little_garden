@@ -1,0 +1,520 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+:root {
+  --pink-light: #FFC2D1;
+  --pink-primary: #FF85A2;
+  --pink-dark: #E05273;
+  --white: #FFFFFF;
+  --text: #333333;
+  --text-light: #777777;
+  --green: #4CAF50;
+  --yellow: #FFEB3B;
+  --red: #F44336;
+  --shadow: 0 4px 15px rgba(255, 133, 162, 0.2);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+  background-color: #1a1a2e;
+  color: var(--text);
+}
+
+* { box-sizing: border-box; }
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--white);
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ===== BALCONY SCENE ===== */
+.balcony-scene {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+/* Sky / City Background */
+.city-background {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: visible;  /* MUST be visible so floating menus aren't clipped */
+  transition: background 1s ease;
+}
+
+/* Inner wrapper clips sky decorations (clouds, stars) */
+.sky-clip {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.city-background.day  { background: linear-gradient(to bottom, #87CEEB, #E0F6FF); }
+.city-background.night { background: linear-gradient(to bottom, #0B1D3A, #1A365D); }
+
+.sun-moon {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  transition: all 1s ease;
+}
+.city-background.day .sun-moon   { background: #FFD700; box-shadow: 0 0 40px #FFD700; }
+.city-background.night .sun-moon { background: #FFF;    box-shadow: 0 0 20px #FFF; }
+
+.clouds { position: absolute; width: 100%; height: 100%; top: 0; pointer-events: none; }
+.cloud  { position: absolute; background: white; border-radius: 50px; opacity: 0.8; }
+.city-background.day .cloud.c1 { width: 80px; height: 30px; top: 20px; left: -100px; animation: floatCloud 20s linear infinite; }
+.city-background.day .cloud.c2 { width: 60px; height: 20px; top: 60px; left: -80px;  animation: floatCloud 28s linear infinite 10s; }
+.city-background.night .cloud { display: none; }
+@keyframes floatCloud { from { transform: translateX(0); } to { transform: translateX(600px); } }
+
+.stars { position: absolute; width: 100%; height: 100%; display: none; }
+.city-background.night .stars { display: block; }
+.star { position: absolute; width: 3px; height: 3px; background: white; border-radius: 50%; animation: twinkle 2s infinite alternate; }
+.s1 { top: 20px; left: 20%; } .s2 { top: 40px; left: 50%; animation-delay: 0.5s; } .s3 { top: 25px; left: 80%; animation-delay: 1s; }
+@keyframes twinkle { 0% { opacity: 0.2; } 100% { opacity: 1; } }
+
+.buildings { position: absolute; bottom: 50px; width: 100%; height: 120px; display: flex; align-items: flex-end; justify-content: space-around; padding: 0 10px; }
+.building { width: 40px; border-radius: 2px 2px 0 0; position: relative; }
+.city-background.day .building   { background: #888; }
+.city-background.night .building { background: #111; border: 1px solid #222; }
+.window { width: 8px; height: 12px; position: absolute; background: #333; }
+.w1 { top: 10px; left: 5px; } .w2 { top: 10px; right: 5px; }
+.w3 { top: 30px; left: 5px; } .w4 { top: 30px; right: 5px; }
+.city-background.night .window { background: #FFD700; box-shadow: 0 0 5px #FFD700; }
+
+/* ===== WOODEN BALCONY SHELF ===== */
+.balcony-shelf {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+}
+
+.balcony-top-rail {
+  width: 100%;
+  height: 18px;
+  background: linear-gradient(to bottom, #C8864A, #A0522D);
+  border-top: 4px solid #DEB887;
+  border-bottom: 3px solid #6B3A1F;
+}
+
+.balcony-posts-row {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  background: rgba(139, 69, 19, 0.15);
+}
+
+.balcony-post {
+  width: 14px;
+  height: 100%;
+  background: linear-gradient(to right, #A0522D, #8B4513, #6B3A1F);
+  border-radius: 2px;
+}
+
+.balcony-floor {
+  width: 100%;
+  height: 14px;
+  background: linear-gradient(to bottom, #A0522D, #6B3A1F);
+}
+
+/* ===== PLANTS ON BALCONY ===== */
+.balcony-plants-row {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  width: 100%;
+  z-index: 30;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding: 0 20px;
+  overflow: visible;   /* allow floating menus to pop above */
+}
+
+.balcony-plant-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* anchor plant to bottom of slot */
+  cursor: pointer;
+  flex: 1;
+  max-width: 75px;
+  overflow: visible;
+  z-index: 30;
+}
+
+.balcony-plant-slot.selected {
+  z-index: 150;        /* lift selected slot above siblings */
+}
+
+/* Empty slot placeholder */
+.empty-plant-slot {
+  width: 36px;
+  height: 45px;
+  border: 2px dashed rgba(255,255,255,0.4);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255,255,255,0.6);
+  font-size: 22px;
+  transition: border-color 0.2s;
+}
+.empty-plant-slot:hover { border-color: var(--pink-primary); color: var(--pink-primary); }
+
+/* Scale down PlantAvatar when on balcony */
+.balcony-plant-slot .plant-container {
+  transform: scale(0.52);
+  transform-origin: bottom center;
+  /* 
+   * The .plant-container is 120×150px at full scale.
+   * At scale(0.52) it visually becomes ~62×78px, but its layout box stays 120×150px.
+   * Collapse the excess layout space with negative margins so the box matches the visual:
+   *   Vertical excess  = 150 - (150 * 0.52) = 72px  → margin-top: -72px
+   *   Horizontal excess = (120 - 120*0.52)/2 = 28.8px per side → margin-left/right: -29px
+   */
+  margin-top: -72px;
+  margin-bottom: 0;
+  margin-left: -29px;
+  margin-right: -29px;
+  filter: drop-shadow(0 -3px 5px rgba(0,0,0,0.25));
+  transition: filter 0.3s ease;
+}
+
+.balcony-plant-slot.selected .plant-container {
+  filter: drop-shadow(0 0 12px var(--pink-primary)) drop-shadow(0 -3px 5px rgba(0,0,0,0.25));
+}
+
+/* ===== FLOATING CARE MENU ===== */
+.floating-care-menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.28);
+  padding: 12px;
+  z-index: 200;
+  animation: popIn 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  width: 220px;
+  max-width: 90vw;
+  pointer-events: all;
+}
+
+/* Right-side variant — opens leftward */
+.floating-care-menu.fcm-right {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+.floating-care-menu.fcm-right::after {
+  left: auto;
+  right: 15px;
+}
+
+.floating-care-menu::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -7px;
+  border-width: 7px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+/* Header: plant name + stat bars */
+.fcm-header {
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 9px;
+  padding-bottom: 8px;
+}
+
+.fcm-name {
+  display: block;
+  font-weight: 900;
+  font-size: 11px;
+  color: var(--pink-dark);
+  text-align: center;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.fcm-stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.fcm-bar {
+  flex: 1;
+  height: 6px;
+  background: #eee;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.fcm-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s;
+}
+
+/* Action buttons grid */
+.fcm-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5px;
+  justify-items: center;
+}
+
+.floating-btn {
+  background: var(--pink-light);
+  color: var(--pink-dark);
+  border: none;
+  padding: 7px 8px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  transition: background 0.2s;
+  min-width: 38px;
+}
+.floating-btn .btn-icon { font-size: 16px; line-height: 1; }
+.floating-btn:hover { background: var(--pink-primary); color: white; }
+
+@keyframes popIn {
+  from { transform: translateX(-50%) scale(0.7); opacity: 0; }
+  to   { transform: translateX(-50%) scale(1);   opacity: 1; }
+}
+
+/* Sell section in floating menu */
+.fcm-sell-row {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+.fcm-price {
+  font-size: 11px;
+  color: var(--green);
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.sell-btn {
+  width: 100%;
+  padding: 6px;
+  background: linear-gradient(135deg, #FF5252, #D32F2F);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.sell-btn:hover { opacity: 0.85; }
+
+
+
+/* ===== PLANTS INFO PANEL (below balcony) ===== */
+.plant-info-panel {
+  background: #FFF5F7;
+  padding: 15px 20px;
+  border-top: 3px solid var(--pink-light);
+}
+
+.plant-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.plant-info-header h3 {
+  margin: 0;
+  color: var(--green);
+  font-size: 16px;
+}
+
+.plant-stat-row {
+  display: flex;
+  gap: 12px;
+}
+
+/* ===== INVENTORY TAB ===== */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 15px 0;
+}
+
+.inventory-item {
+  background: white;
+  border-radius: 15px;
+  padding: 15px 10px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border: 2px solid transparent;
+}
+
+.inventory-item.equipped {
+  border-color: var(--green);
+}
+
+.inventory-item .item-icon-big { font-size: 36px; margin-bottom: 8px; }
+.inventory-item h4 { margin: 0 0 5px; font-size: 13px; color: var(--pink-dark); }
+.inventory-item p  { margin: 0 0 10px; font-size: 11px; color: var(--text-light); }
+
+.equip-btn {
+  width: 100%;
+  padding: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.equip-btn.equip   { background: var(--green); color: white; }
+.equip-btn.unequip { background: #eee; color: var(--text); }
+
+/* ===== MISC ===== */
+.shop-open { overflow: hidden; }
+
+.stat-bar-label { font-size: 12px; margin-bottom: 2px; color: var(--text); font-weight: bold; }
+.stat-bar-track { height: 10px; width: 100%; background: #eee; border-radius: 5px; overflow: hidden; margin-bottom: 8px; }
+.stat-bar-fill  { height: 100%; transition: width 0.3s; border-radius: 5px; }
+
+/* ===== CARE STATION (permanent below balcony row) ===== */
+.care-station {
+  background: white;
+  border-radius: 18px;
+  padding: 15px;
+  margin: 15px;
+  box-shadow: var(--shadow);
+  border: 2px solid var(--pink-light);
+  transition: all 0.3s ease;
+}
+
+.care-station.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 15px;
+  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.6);
+  border-style: dashed;
+}
+
+.care-station-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #f9f9f9;
+  padding-bottom: 8px;
+}
+
+.care-station-title {
+  margin: 0;
+  font-size: 16px;
+  color: var(--pink-dark);
+  font-weight: bold;
+}
+
+.care-station-badge {
+  font-size: 11px;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+.care-station-badge.seed { background: #E0F7FA; color: #00838F; }
+.care-station-badge.sprout { background: #E8F5E9; color: #2E7D32; }
+.care-station-badge.plant { background: #FFF9C4; color: #F57F17; }
+.care-station-badge.mature { background: #FCE4EC; color: #C2185B; }
+.care-station-badge.dead { background: #E0E0E0; color: #616161; }
+
+.care-station-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.care-station-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.care-station-actions-row2 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.care-station-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+}
+
+.care-station-dead-banner {
+  background-color: #FFEBEE;
+  color: #C62828;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 12px;
+  border: 1px solid #FFCDD2;
+}
+

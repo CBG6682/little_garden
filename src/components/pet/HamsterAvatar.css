@@ -1,0 +1,479 @@
+.hamster-container {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  height: 250px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  -webkit-tap-highlight-color: transparent;
+  border: 8px solid var(--pink-light);
+  border-radius: 20px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,245,247,0.9));
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 5px 15px rgba(255, 133, 162, 0.2);
+  overflow: hidden;
+}
+
+/* Terrarium specific */
+.wood-shavings {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #F5DEB3;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139,69,19,0.1) 10px, rgba(139,69,19,0.1) 20px);
+  border-top: 4px solid #DEB887;
+  z-index: 5;
+}
+
+.water-bottle {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  width: 25px;
+  height: 70px;
+  background-color: rgba(200, 230, 255, 0.6);
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  z-index: 2;
+}
+
+.water-bottle::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 8px;
+  width: 5px;
+  height: 15px;
+  background-color: #ccc;
+  border-radius: 0 0 3px 3px;
+}
+
+/* Wheel */
+.hamster-wheel {
+  position: absolute;
+  bottom: 35px;
+  left: 20px;
+  width: 130px;
+  height: 130px;
+  border: 8px solid var(--pink-primary);
+  border-radius: 50%;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.wheel-stand {
+  position: absolute;
+  bottom: 10px;
+  left: 80px;
+  width: 10px;
+  height: 60px;
+  background-color: #ccc;
+  z-index: 0;
+  border-radius: 5px;
+}
+
+.wheel-spoke {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--pink-light);
+  transform-origin: center;
+}
+.wheel-spoke:nth-child(1) { transform: translateY(-50%) rotate(0deg); }
+.wheel-spoke:nth-child(2) { transform: translateY(-50%) rotate(45deg); }
+.wheel-spoke:nth-child(3) { transform: translateY(-50%) rotate(90deg); }
+.wheel-spoke:nth-child(4) { transform: translateY(-50%) rotate(135deg); }
+
+@keyframes spin-wheel {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.hamster-wheel.spinning {
+  animation: spin-wheel 0.8s linear infinite;
+}
+
+.hamster-body {
+  width: 120px;
+  height: 110px;
+  background-color: #fca048;
+  border-radius: 60px 60px 50px 50px;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset -10px -10px 0 rgba(0,0,0,0.1);
+  animation: breathe 3s infinite ease-in-out;
+  transform-origin: bottom center;
+  transition: all 0.5s ease;
+  z-index: 10;
+}
+
+.running .hamster-body {
+  left: 25px; /* Move into wheel */
+  transform: translateX(0) scale(0.8) translateY(-10px);
+  animation: run-bounce 0.2s infinite alternate;
+}
+
+@keyframes run-bounce {
+  0% { transform: translateX(0) scale(0.8) translateY(-10px); }
+  100% { transform: translateX(0) scale(0.8) translateY(-15px); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+  50% { transform: translateX(-50%) scaleY(1.02) scaleX(0.98); }
+}
+
+/* Jumping animation */
+@keyframes jump {
+  0%, 100% { transform: translateX(-50%) translateY(0) scaleY(1); }
+  30% { transform: translateX(-50%) translateY(-30px) scaleY(1.1); }
+  70% { transform: translateX(-50%) translateY(0) scaleY(0.9); }
+}
+.jumping .hamster-body {
+  animation: jump 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ===== PETTING / WIGGLE ANIMATION ===== */
+@keyframes wiggle {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  15% { transform: translateX(-50%) rotate(-8deg); }
+  30% { transform: translateX(-50%) rotate(8deg); }
+  45% { transform: translateX(-50%) rotate(-6deg); }
+  60% { transform: translateX(-50%) rotate(6deg); }
+  75% { transform: translateX(-50%) rotate(-3deg); }
+  90% { transform: translateX(-50%) rotate(3deg); }
+}
+
+.petting .hamster-body {
+  animation: wiggle 0.6s ease-in-out infinite;
+}
+
+.petting-hearts {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  pointer-events: none;
+}
+
+.petting-hearts .heart {
+  position: absolute;
+  font-size: 18px;
+  opacity: 0;
+  animation: floatHeart 1.2s infinite ease-out;
+}
+.heart.h1 { left: -20px; animation-delay: 0s; }
+.heart.h2 { left: 5px; animation-delay: 0.4s; }
+.heart.h3 { left: 30px; animation-delay: 0.8s; }
+
+@keyframes floatHeart {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  30% { opacity: 1; transform: translateY(-15px) scale(1); }
+  100% { opacity: 0; transform: translateY(-50px) scale(1.3); }
+}
+
+.hamster-belly {
+  position: absolute;
+  bottom: 5px;
+  left: 20px;
+  width: 80px;
+  height: 60px;
+  background-color: #fffaf0;
+  border-radius: 40px;
+}
+
+.hamster-ear {
+  position: absolute;
+  top: -15px;
+  width: 35px;
+  height: 35px;
+  background-color: #fca048;
+  border-radius: 50%;
+  border: 4px solid #fffaf0;
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.hamster-ear.left { left: 5px; }
+.hamster-ear.right { right: 5px; }
+
+.hamster-eye {
+  position: absolute;
+  top: 35px;
+  width: 12px;
+  height: 12px;
+  background-color: #333;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.hamster-eye::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.hamster-eye.left { left: 35px; }
+.hamster-eye.right { right: 35px; }
+
+.hamster-nose {
+  position: absolute;
+  top: 48px;
+  left: 55px;
+  width: 10px;
+  height: 8px;
+  background-color: var(--pink-primary, #FF85A2);
+  border-radius: 50%;
+}
+
+.hamster-mouth {
+  position: absolute;
+  top: 55px;
+  left: 55px;
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid #333;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.hamster-cheek {
+  position: absolute;
+  top: 48px;
+  width: 15px;
+  height: 10px;
+  background-color: rgba(255, 133, 162, 0.4);
+  border-radius: 50%;
+}
+
+.hamster-cheek.left { left: 20px; }
+.hamster-cheek.right { right: 20px; }
+
+/* Eating Animation */
+@keyframes chew {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2) translateY(-2px); }
+}
+@keyframes chew-mouth {
+  0%, 100% { height: 10px; border-radius: 50%; border-bottom: 2px solid #333; }
+  50% { height: 4px; border-radius: 10px; border-bottom: 4px solid #333; }
+}
+.eating .hamster-cheek {
+  animation: chew 0.2s infinite;
+}
+.eating .hamster-mouth {
+  animation: chew-mouth 0.2s infinite;
+}
+
+.hamster-paw {
+  position: absolute;
+  top: 65px;
+  width: 15px;
+  height: 20px;
+  background-color: #fffaf0;
+  border-radius: 10px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+}
+
+.hamster-paw.left { left: 35px; transform: rotate(15deg); }
+.hamster-paw.right { right: 35px; transform: rotate(-15deg); }
+
+.hamster-foot {
+  position: absolute;
+  bottom: -5px;
+  width: 25px;
+  height: 15px;
+  background-color: var(--pink-light, #FFC2D1);
+  border-radius: 10px;
+}
+
+.hamster-foot.left { left: 25px; }
+.hamster-foot.right { right: 25px; }
+
+/* Moods */
+.sad .hamster-mouth {
+  border-bottom: none;
+  border-top: 2px solid #333;
+  top: 58px;
+}
+.sad .hamster-ear { top: -5px; transform: rotate(-20deg); }
+.sad .hamster-ear.right { transform: rotate(20deg); }
+
+.sleepy .hamster-body {
+  transform: translateX(-50%) rotate(5deg) translateY(10px) scaleY(0.95);
+  animation: none;
+}
+.sleepy.jumping .hamster-body {
+  animation: none; 
+}
+
+.sleepy .hamster-eye {
+  height: 3px;
+  border-radius: 0;
+  background-color: #333;
+  border-bottom: none;
+  top: 42px;
+}
+.sleepy .hamster-eye::after { display: none; }
+
+.sick .hamster-body { background-color: #c4d8b6; }
+.sick .hamster-ear { background-color: #c4d8b6; }
+
+.zzz-container {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  color: #333;
+  font-weight: bold;
+  z-index: 20;
+}
+
+.z1, .z2, .z3 {
+  position: absolute;
+  opacity: 0;
+  animation: floatZ 3s infinite;
+}
+
+.z1 { top: 10px; right: 20px; font-size: 14px; animation-delay: 0s; }
+.z2 { top: -5px; right: 5px; font-size: 18px; animation-delay: 1s; }
+.z3 { top: -25px; right: -15px; font-size: 24px; animation-delay: 2s; }
+
+@keyframes floatZ {
+  0% { opacity: 0; transform: translateY(0) scale(0.5) rotate(-10deg); }
+  50% { opacity: 1; transform: translateY(-15px) scale(1) rotate(10deg); }
+  100% { opacity: 0; transform: translateY(-30px) scale(1.2) rotate(-10deg); }
+}
+
+/* ===== PET ACCESSORIES ===== */
+.accessory-hat {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* Top Hat */
+.top-hat .hat-crown {
+  width: 30px;
+  height: 30px;
+  background: #222;
+  border-radius: 3px 3px 0 0;
+  margin: 0 auto;
+}
+.top-hat .hat-brim {
+  width: 50px;
+  height: 8px;
+  background: #222;
+  border-radius: 3px;
+  margin: 0 auto;
+  position: relative;
+  top: 30px;
+}
+
+/* Pink Bow (head) */
+.pink-bow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.bow-left, .bow-right {
+  width: 18px;
+  height: 14px;
+  background: var(--pink-primary, #FF85A2);
+  border-radius: 50%;
+}
+.bow-center {
+  width: 8px;
+  height: 8px;
+  background: var(--pink-dark, #E05273);
+  border-radius: 50%;
+  margin: 0 -3px;
+  z-index: 1;
+}
+
+/* ===== SUMMER STRAW HAT ===== */
+.summer-hat {
+  top: -35px;
+}
+.straw-brim {
+  width: 65px;
+  height: 12px;
+  background: linear-gradient(to bottom, #F5DEB3, #DEB887);
+  border-radius: 50%;
+  margin: 0 auto;
+  position: relative;
+  top: 22px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.straw-crown {
+  width: 36px;
+  height: 22px;
+  background: linear-gradient(to right, #F5DEB3, #FAEBD7, #F5DEB3);
+  border-radius: 10px 10px 0 0;
+  margin: 0 auto;
+  border: 2px solid #DEB887;
+  border-bottom: none;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 3px,
+    rgba(139,69,19,0.08) 3px,
+    rgba(139,69,19,0.08) 4px
+  );
+}
+.straw-ribbon {
+  width: 40px;
+  height: 5px;
+  background: #E53935;
+  margin: 0 auto;
+  position: relative;
+  top: -1px;
+  border-radius: 1px;
+}
+
+/* ===== PINK BOWTIE (neck accessory) ===== */
+.accessory-neck {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  pointer-events: none;
+}
+
+.pink-bowtie-acc {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.bowtie-left, .bowtie-right {
+  width: 16px;
+  height: 12px;
+  background: linear-gradient(135deg, #FF85A2, #E05273);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.bowtie-center {
+  width: 7px;
+  height: 7px;
+  background: #C2185B;
+  border-radius: 50%;
+  margin: 0 -2px;
+  z-index: 1;
+  box-shadow: 0 0 3px rgba(194,24,91,0.5);
+}

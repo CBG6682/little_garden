@@ -1,0 +1,618 @@
+.bou-container {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  height: 250px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  -webkit-tap-highlight-color: transparent;
+  border: 8px solid var(--pink-light);
+  border-radius: 20px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,245,247,0.9));
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 5px 15px rgba(255, 133, 162, 0.2);
+  overflow: hidden;
+}
+
+/* Terrarium specific */
+.bou-container .wood-shavings {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #F5DEB3;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(139,69,19,0.1) 10px, rgba(139,69,19,0.1) 20px);
+  border-top: 4px solid #DEB887;
+  z-index: 5;
+}
+
+.bou-container .water-bottle {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  width: 25px;
+  height: 70px;
+  background-color: rgba(200, 230, 255, 0.6);
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  z-index: 2;
+}
+
+.bou-container .water-bottle::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 8px;
+  width: 5px;
+  height: 15px;
+  background-color: #ccc;
+  border-radius: 0 0 3px 3px;
+}
+
+/* Wheel */
+.bou-wheel {
+  position: absolute;
+  bottom: 35px;
+  left: 20px;
+  width: 130px;
+  height: 130px;
+  border: 8px solid var(--pink-primary);
+  border-radius: 50%;
+  z-index: 1;
+  box-sizing: border-box;
+}
+
+.bou-container .wheel-stand {
+  position: absolute;
+  bottom: 10px;
+  left: 80px;
+  width: 10px;
+  height: 60px;
+  background-color: #ccc;
+  z-index: 0;
+  border-radius: 5px;
+}
+
+.bou-wheel .wheel-spoke {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--pink-light);
+  transform-origin: center;
+}
+.bou-wheel .wheel-spoke:nth-child(1) { transform: translateY(-50%) rotate(0deg); }
+.bou-wheel .wheel-spoke:nth-child(2) { transform: translateY(-50%) rotate(45deg); }
+.bou-wheel .wheel-spoke:nth-child(3) { transform: translateY(-50%) rotate(90deg); }
+.bou-wheel .wheel-spoke:nth-child(4) { transform: translateY(-50%) rotate(135deg); }
+
+@keyframes spin-wheel-bou {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.bou-wheel.spinning {
+  animation: spin-wheel-bou 0.8s linear infinite;
+}
+
+/* ===== GUINEA PIG BODY — Plumper teardrop shape ===== */
+.bou-body {
+  width: 135px;       /* Wider than hamster */
+  height: 105px;      /* Slightly shorter → plumper ratio */
+  background-color: #D2691E;
+  border-radius: 65px 65px 55px 55px;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset -12px -10px 0 rgba(0,0,0,0.12);
+  animation: breathe-bou 3s infinite ease-in-out;
+  transform-origin: bottom center;
+  transition: all 0.5s ease;
+  z-index: 10;
+}
+
+.running .bou-body {
+  left: 25px;
+  transform: translateX(0) scale(0.75) translateY(-10px);
+  animation: run-bounce-bou 0.2s infinite alternate;
+}
+
+@keyframes run-bounce-bou {
+  0% { transform: translateX(0) scale(0.75) translateY(-10px); }
+  100% { transform: translateX(0) scale(0.75) translateY(-16px); }
+}
+
+@keyframes breathe-bou {
+  0%, 100% { transform: translateX(-50%) scaleY(1) scaleX(1); }
+  50% { transform: translateX(-50%) scaleY(1.02) scaleX(0.98); }
+}
+
+/* Jumping animation */
+@keyframes jump-bou {
+  0%, 100% { transform: translateX(-50%) translateY(0) scaleY(1); }
+  30% { transform: translateX(-50%) translateY(-25px) scaleY(1.08); }
+  70% { transform: translateX(-50%) translateY(0) scaleY(0.92); }
+}
+.jumping .bou-body {
+  animation: jump-bou 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Petting / Wiggle */
+@keyframes wiggle-bou {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  15% { transform: translateX(-50%) rotate(-7deg); }
+  30% { transform: translateX(-50%) rotate(7deg); }
+  45% { transform: translateX(-50%) rotate(-5deg); }
+  60% { transform: translateX(-50%) rotate(5deg); }
+  75% { transform: translateX(-50%) rotate(-2deg); }
+  90% { transform: translateX(-50%) rotate(2deg); }
+}
+
+.petting .bou-body {
+  animation: wiggle-bou 0.6s ease-in-out infinite;
+}
+
+.bou-container .petting-hearts {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  pointer-events: none;
+}
+
+.bou-container .petting-hearts .heart {
+  position: absolute;
+  font-size: 18px;
+  opacity: 0;
+  animation: floatHeart-bou 1.2s infinite ease-out;
+}
+.bou-container .heart.h1 { left: -20px; animation-delay: 0s; }
+.bou-container .heart.h2 { left: 5px; animation-delay: 0.4s; }
+.bou-container .heart.h3 { left: 30px; animation-delay: 0.8s; }
+
+@keyframes floatHeart-bou {
+  0% { opacity: 0; transform: translateY(0) scale(0.5); }
+  30% { opacity: 1; transform: translateY(-15px) scale(1); }
+  100% { opacity: 0; transform: translateY(-50px) scale(1.3); }
+}
+
+.bou-belly {
+  position: absolute;
+  bottom: 5px;
+  left: 22px;
+  width: 90px;         /* Bigger belly — guinea pig */
+  height: 55px;
+  background-color: #FAEBD7;
+  border-radius: 45px;
+}
+
+/* Guinea pig ears — smaller, more rounded */
+.bou-ear {
+  position: absolute;
+  top: -8px;           /* Shorter ears */
+  width: 26px;
+  height: 26px;
+  background-color: #D2691E;
+  border-radius: 50%;
+  border: 3px solid #FAEBD7;
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.bou-ear.left { left: 10px; }
+.bou-ear.right { right: 10px; }
+
+.bou-eye {
+  position: absolute;
+  top: 32px;
+  width: 13px;
+  height: 13px;
+  background-color: #222;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.bou-eye::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 5px;
+  height: 5px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.bou-eye.left { left: 35px; }
+.bou-eye.right { right: 35px; }
+
+.bou-nose {
+  position: absolute;
+  top: 45px;
+  left: 55px;
+  width: 14px;
+  height: 10px;
+  background-color: var(--pink-primary, #FF85A2);
+  border-radius: 50%;
+}
+
+.bou-mouth {
+  position: absolute;
+  top: 54px;
+  left: 57px;
+  width: 12px;
+  height: 8px;
+  border-bottom: 2px solid #333;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+/* Guinea pig whiskers */
+.bou-whisker {
+  position: absolute;
+  top: 50px;
+  width: 20px;
+  height: 1px;
+  background-color: rgba(0,0,0,0.15);
+}
+.bou-whisker.left {
+  left: 15px;
+  transform: rotate(-5deg);
+}
+.bou-whisker.left::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 18px;
+  height: 1px;
+  background: rgba(0,0,0,0.12);
+  transform: rotate(8deg);
+}
+.bou-whisker.right {
+  right: 15px;
+  transform: rotate(5deg);
+}
+.bou-whisker.right::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: 0;
+  width: 18px;
+  height: 1px;
+  background: rgba(0,0,0,0.12);
+  transform: rotate(-8deg);
+}
+
+.bou-cheek {
+  position: absolute;
+  top: 48px;
+  width: 18px;          /* Bigger cheeks */
+  height: 12px;
+  background-color: rgba(255, 133, 162, 0.4);
+  border-radius: 50%;
+}
+
+.bou-cheek.left { left: 18px; }
+.bou-cheek.right { right: 18px; }
+
+/* Eating Animation */
+@keyframes chew-bou {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15) translateY(-1px); }
+}
+@keyframes chew-mouth-bou {
+  0%, 100% { height: 8px; border-radius: 50%; border-bottom: 2px solid #333; }
+  50% { height: 3px; border-radius: 10px; border-bottom: 4px solid #333; }
+}
+.eating .bou-cheek {
+  animation: chew-bou 0.2s infinite;
+}
+.eating .bou-mouth {
+  animation: chew-mouth-bou 0.2s infinite;
+}
+
+/* Paws — shorter for guinea pig */
+.bou-paw {
+  position: absolute;
+  top: 68px;
+  width: 14px;
+  height: 16px;
+  background-color: #FAEBD7;
+  border-radius: 8px;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+}
+
+.bou-paw.left { left: 38px; transform: rotate(12deg); }
+.bou-paw.right { right: 38px; transform: rotate(-12deg); }
+
+/* Feet — small round guinea pig feet, no tail */
+.bou-foot {
+  position: absolute;
+  bottom: -4px;
+  width: 22px;
+  height: 12px;
+  background-color: var(--pink-light, #FFC2D1);
+  border-radius: 10px;
+}
+
+.bou-foot.left { left: 30px; }
+.bou-foot.right { right: 30px; }
+
+/* Moods */
+.sad .bou-mouth {
+  border-bottom: none;
+  border-top: 2px solid #333;
+  top: 57px;
+}
+.sad .bou-ear { top: -2px; transform: rotate(-15deg); }
+.sad .bou-ear.right { transform: rotate(15deg); }
+
+.sleepy .bou-body {
+  transform: translateX(-50%) rotate(5deg) translateY(10px) scaleY(0.95);
+  animation: none;
+}
+.sleepy.jumping .bou-body {
+  animation: none; 
+}
+
+.sleepy .bou-eye {
+  height: 3px;
+  border-radius: 0;
+  background-color: #333;
+  border-bottom: none;
+  top: 40px;
+}
+.sleepy .bou-eye::after { display: none; }
+
+.sick .bou-body { background-color: #c4d8b6; }
+.sick .bou-ear { background-color: #c4d8b6; }
+
+.bou-container .zzz-container {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  color: #333;
+  font-weight: bold;
+  z-index: 20;
+}
+
+.bou-container .z1, .bou-container .z2, .bou-container .z3 {
+  position: absolute;
+  opacity: 0;
+  animation: floatZ-bou 3s infinite;
+}
+
+.bou-container .z1 { top: 10px; right: 20px; font-size: 14px; animation-delay: 0s; }
+.bou-container .z2 { top: -5px; right: 5px; font-size: 18px; animation-delay: 1s; }
+.bou-container .z3 { top: -25px; right: -15px; font-size: 24px; animation-delay: 2s; }
+
+@keyframes floatZ-bou {
+  0% { opacity: 0; transform: translateY(0) scale(0.5) rotate(-10deg); }
+  50% { opacity: 1; transform: translateY(-15px) scale(1) rotate(10deg); }
+  100% { opacity: 0; transform: translateY(-30px) scale(1.2) rotate(-10deg); }
+}
+
+/* ===== PET ACCESSORIES ===== */
+.bou-body .accessory-hat {
+  position: absolute;
+  top: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  pointer-events: none;
+}
+
+/* Top Hat */
+.bou-body .top-hat .hat-crown {
+  width: 30px;
+  height: 30px;
+  background: #222;
+  border-radius: 3px 3px 0 0;
+  margin: 0 auto;
+}
+.bou-body .top-hat .hat-brim {
+  width: 50px;
+  height: 8px;
+  background: #222;
+  border-radius: 3px;
+  margin: 0 auto;
+  position: relative;
+  top: 30px;
+}
+
+/* Pink Bow (head) */
+.bou-body .pink-bow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.bou-body .bow-left, .bou-body .bow-right {
+  width: 18px;
+  height: 14px;
+  background: var(--pink-primary, #FF85A2);
+  border-radius: 50%;
+}
+.bou-body .bow-center {
+  width: 8px;
+  height: 8px;
+  background: var(--pink-dark, #E05273);
+  border-radius: 50%;
+  margin: 0 -3px;
+  z-index: 1;
+}
+
+/* Summer Straw Hat */
+.bou-body .summer-hat {
+  top: -33px;
+}
+.bou-body .straw-brim {
+  width: 65px;
+  height: 12px;
+  background: linear-gradient(to bottom, #F5DEB3, #DEB887);
+  border-radius: 50%;
+  margin: 0 auto;
+  position: relative;
+  top: 22px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.bou-body .straw-crown {
+  width: 36px;
+  height: 22px;
+  background: linear-gradient(to right, #F5DEB3, #FAEBD7, #F5DEB3);
+  border-radius: 10px 10px 0 0;
+  margin: 0 auto;
+  border: 2px solid #DEB887;
+  border-bottom: none;
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 3px,
+    rgba(139,69,19,0.08) 3px,
+    rgba(139,69,19,0.08) 4px
+  );
+}
+.bou-body .straw-ribbon {
+  width: 40px;
+  height: 5px;
+  background: #E53935;
+  margin: 0 auto;
+  position: relative;
+  top: -1px;
+  border-radius: 1px;
+}
+
+/* Pink Bowtie (neck accessory) */
+.bou-body .accessory-neck {
+  position: absolute;
+  top: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  pointer-events: none;
+}
+
+.bou-body .pink-bowtie-acc {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.bou-body .bowtie-left, .bou-body .bowtie-right {
+  width: 16px;
+  height: 12px;
+  background: linear-gradient(135deg, #FF85A2, #E05273);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.bou-body .bowtie-center {
+  width: 7px;
+  height: 7px;
+  background: #C2185B;
+  border-radius: 50%;
+  margin: 0 -2px;
+  z-index: 1;
+  box-shadow: 0 0 3px rgba(194,24,91,0.5);
+}
+
+
+/* ====================================================================
+   DEAD STATE — Tombstone + Ghost Animation
+   ==================================================================== */
+.dead-pet {
+  background: linear-gradient(to bottom, rgba(200,200,200,0.4), rgba(180,180,180,0.6));
+  border-color: #999;
+}
+
+.tombstone {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.tombstone-stone {
+  width: 80px;
+  height: 90px;
+  background: linear-gradient(135deg, #9E9E9E, #757575, #616161);
+  border-radius: 40px 40px 5px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.tombstone-cross {
+  font-size: 24px;
+  color: #ccc;
+  margin-bottom: 4px;
+}
+
+.tombstone-text {
+  font-size: 14px;
+  font-weight: 900;
+  color: #ddd;
+  letter-spacing: 2px;
+}
+
+.tombstone-base {
+  width: 100px;
+  height: 12px;
+  background: linear-gradient(to bottom, #757575, #616161);
+  border-radius: 3px;
+  margin-top: -2px;
+}
+
+/* Floating ghost */
+.ghost-float {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: ghostUp 3s ease-in-out infinite;
+  opacity: 0.5;
+}
+
+.ghost-body {
+  width: 40px;
+  height: 50px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 20px 20px 0 0;
+  position: relative;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 80%, 80% 100%, 60% 80%, 40% 100%, 20% 80%, 0% 100%);
+}
+
+.ghost-eye {
+  position: absolute;
+  top: 15px;
+  width: 6px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+}
+.ghost-eye.left { left: 10px; }
+.ghost-eye.right { right: 10px; }
+
+.ghost-blush {
+  position: absolute;
+  top: 25px;
+  width: 8px;
+  height: 5px;
+  background: rgba(255,133,162,0.4);
+  border-radius: 50%;
+}
+.ghost-blush.left { left: 5px; }
+.ghost-blush.right { right: 5px; }
+
+@keyframes ghostUp {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+  50% { transform: translateX(-50%) translateY(-15px); opacity: 0.7; }
+}
