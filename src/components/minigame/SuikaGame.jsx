@@ -423,7 +423,12 @@ export default function SuikaGame({ onReward }) {
         ctx.fill();
 
         // Emoji
-        ctx.font = `${Math.floor(curInfo.radius * 1.15)}px sans-serif`;
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.fillStyle = '#000000';
+        ctx.font = `${Math.floor(curInfo.radius * 1.15)}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(curInfo.emoji, curX, 40);
@@ -462,7 +467,13 @@ export default function SuikaGame({ onReward }) {
         ctx.stroke();
 
         // Emoji face/representation
-        ctx.font = `${Math.floor(f.radius * 1.1)}px sans-serif`;
+        // Reset shadow & fillStyle so WebKit/iOS does not mask Apple Color Emoji with CanvasGradient
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        ctx.fillStyle = '#000000';
+        ctx.font = `${Math.floor(f.radius * 1.15)}px "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(info.emoji, 0, 0);
