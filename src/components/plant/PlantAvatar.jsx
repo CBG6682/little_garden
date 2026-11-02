@@ -26,6 +26,8 @@ const PlantAvatar = ({ species = 'cay_kim_tien', stage = 'seed', isWatering = fa
   const potClass = potSkin === 'gold_pot' ? 'gold-pot-skin' 
     : potSkin === 'bat_trang_pot' ? 'bat-trang-pot-skin' 
     : potSkin === 'marble_pot' ? 'marble-pot-skin' 
+    : potSkin === 'men_lam_pot' ? 'men-lam-pot-skin'
+    : potSkin === 'rainbow_pot' ? 'rainbow-pot-skin'
     : '';
 
   const isDead = stage === 'dead';
@@ -452,6 +454,140 @@ const PlantAvatar = ({ species = 'cay_kim_tien', stage = 'seed', isWatering = fa
                   <>
                     <div className="nmh-leaf nmhl4"></div>
                     <div className="nmh-leaf nmhl5"></div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* ===== 6 NEW SPECIAL SPECIES ===== */}
+
+            {/* Hoa Sen Mini — elegant round lotus pads & pink multi-layer lotus blossom */}
+            {species === 'hoa_sen_mini' && (
+              <div className="hoa-sen">
+                <div className="sen-pad sp1"></div>
+                <div className="sen-pad sp2"></div>
+                <div className="sen-pad sp3"></div>
+                <div className="sen-stem"></div>
+                <div className="sen-flower">
+                  <div className="sen-petal sp-l1"></div>
+                  <div className="sen-petal sp-l2"></div>
+                  <div className="sen-petal sp-r1"></div>
+                  <div className="sen-petal sp-r2"></div>
+                  <div className="sen-petal sp-c"></div>
+                  <div className="sen-center"></div>
+                </div>
+                {stage === 'mature' && (
+                  <>
+                    <div className="sen-pad sp4"></div>
+                    <div className="sen-dewdrop">💧</div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Xương Rồng Tai Thỏ — cute bunny-ear cactus with yellow blossom */}
+            {species === 'xuong_rong_tai_tho' && (
+              <div className="xuong-rong-tai-tho">
+                <div className="xr-body">
+                  <div className="xr-dot xd1"></div>
+                  <div className="xr-dot xd2"></div>
+                  <div className="xr-dot xd3"></div>
+                </div>
+                <div className="xr-ear left">
+                  <div className="xr-dot xd1"></div>
+                  <div className="xr-dot xd2"></div>
+                </div>
+                <div className="xr-ear right">
+                  <div className="xr-dot xd1"></div>
+                  <div className="xr-dot xd2"></div>
+                </div>
+                {stage === 'mature' && (
+                  <div className="xr-flower">🌼</div>
+                )}
+              </div>
+            )}
+
+            {/* Lan Hồ Điệp — gracefully arching stem with purple butterfly blooms */}
+            {species === 'lan_ho_diep' && (
+              <div className="lan-ho-diep">
+                <div className="lhd-stem"></div>
+                <div className="lhd-leaf l1"></div>
+                <div className="lhd-leaf l2"></div>
+                <div className="lhd-flower flw1">
+                  <div className="lhd-petal p-top"></div>
+                  <div className="lhd-petal p-left"></div>
+                  <div className="lhd-petal p-right"></div>
+                  <div className="lhd-petal p-lip"></div>
+                </div>
+                <div className="lhd-flower flw2">
+                  <div className="lhd-petal p-top"></div>
+                  <div className="lhd-petal p-left"></div>
+                  <div className="lhd-petal p-right"></div>
+                  <div className="lhd-petal p-lip"></div>
+                </div>
+                {stage === 'mature' && (
+                  <div className="lhd-flower flw3">
+                    <div className="lhd-petal p-top"></div>
+                    <div className="lhd-petal p-left"></div>
+                    <div className="lhd-petal p-right"></div>
+                    <div className="lhd-petal p-lip"></div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Hướng Dương Lùn — radiant mini sunflower */}
+            {species === 'huong_duong_lun' && (
+              <div className="huong-duong">
+                <div className="hd-stem"></div>
+                <div className="hd-leaf left"></div>
+                <div className="hd-leaf right"></div>
+                <div className="hd-head">
+                  <div className="hd-petal p1"></div>
+                  <div className="hd-petal p2"></div>
+                  <div className="hd-petal p3"></div>
+                  <div className="hd-petal p4"></div>
+                  <div className="hd-petal p5"></div>
+                  <div className="hd-petal p6"></div>
+                  <div className="hd-petal p7"></div>
+                  <div className="hd-petal p8"></div>
+                  <div className="hd-disc"></div>
+                </div>
+                {stage === 'mature' && <div className="hd-glow">✨</div>}
+              </div>
+            )}
+
+            {/* Sen Đá Móng Rồng — upright spiky leaves with white zebra stripes */}
+            {species === 'sen_da_mong_rong' && (
+              <div className="sen-da-mong-rong">
+                <div className="mr-claw c1"></div>
+                <div className="mr-claw c2"></div>
+                <div className="mr-claw c3"></div>
+                <div className="mr-claw c4"></div>
+                <div className="mr-claw c5"></div>
+                {stage === 'mature' && (
+                  <>
+                    <div className="mr-claw c6"></div>
+                    <div className="mr-claw c7"></div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Mai Vàng Bonsai — winding bonsai trunk with golden spring blossoms */}
+            {species === 'mai_vang_bonsai' && (
+              <div className="mai-vang">
+                <div className="mv-trunk"></div>
+                <div className="mv-branch b1"></div>
+                <div className="mv-branch b2"></div>
+                <div className="mv-flower mv-flw1">🌼</div>
+                <div className="mv-flower mv-flw2">🌼</div>
+                <div className="mv-bud mb1"></div>
+                {stage === 'mature' && (
+                  <>
+                    <div className="mv-flower mv-flw3">🌼</div>
+                    <div className="mv-flower mv-flw4">🌼</div>
+                    <div className="mv-bud mb2"></div>
                   </>
                 )}
               </div>

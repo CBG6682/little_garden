@@ -1,0 +1,189 @@
+.brick-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 440px;
+  margin: 0 auto;
+  user-select: none;
+  font-family: inherit;
+}
+
+.brick-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.brick-score-badge {
+  background: white;
+  border: 2px solid #93c5fd;
+  border-radius: 16px;
+  padding: 6px 14px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+  text-align: left;
+}
+
+.brick-score-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+.brick-score-val {
+  font-size: 18px;
+  font-weight: 900;
+  color: #2563eb;
+}
+
+.brick-lives-panel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 2px solid #fecdd3;
+  border-radius: 16px;
+  padding: 6px 14px;
+  box-shadow: 0 2px 8px rgba(244, 63, 94, 0.1);
+}
+
+.brick-stage-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #be123c;
+  background: #ffe4e6;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+.brick-hearts {
+  font-size: 15px;
+}
+
+/* Canvas styling */
+.brick-canvas-wrap {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: 4px solid #93c5fd;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.brick-powerup-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: white;
+  border-radius: 16px;
+  border: 1.5px solid #f1f5f9;
+  font-size: 11.5px;
+  color: #475569;
+  font-weight: 700;
+}
+
+.brick-powerup-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid #bfdbfe;
+}
+
+.brick-footer {
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Modal Overlay */
+.brick-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: brickFadeIn 0.3s ease-out;
+}
+
+@keyframes brickFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.brick-modal-card {
+  background: white;
+  border-radius: 24px;
+  padding: 24px 20px;
+  width: 85%;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  animation: brickPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes brickPop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.brick-modal-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #1e3a8a;
+  margin: 0 0 6px;
+}
+
+.brick-modal-score {
+  font-size: 28px;
+  font-weight: 900;
+  color: #2563eb;
+  margin: 0 0 12px;
+}
+
+.brick-modal-reward {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fef08a;
+  color: #854d0e;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #fde047;
+}
+
+.brick-modal-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  transition: all 0.2s;
+}
+
+.brick-modal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
+}

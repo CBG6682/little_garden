@@ -1,0 +1,211 @@
+.suika-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 440px;
+  margin: 0 auto;
+  font-family: inherit;
+  user-select: none;
+}
+
+.suika-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 0 6px;
+}
+
+.suika-score-box {
+  background: white;
+  border: 2px solid #fed7aa;
+  border-radius: 16px;
+  padding: 6px 14px;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.1);
+  text-align: left;
+}
+
+.suika-score-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #9a3412;
+}
+
+.suika-score-val {
+  font-size: 18px;
+  font-weight: 900;
+  color: #ea580c;
+}
+
+.suika-next-box {
+  background: white;
+  border: 2px solid #bbf7d0;
+  border-radius: 16px;
+  padding: 4px 12px;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.suika-next-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #166534;
+}
+
+.suika-next-preview {
+  font-size: 22px;
+  animation: suikaBounce 1.5s infinite ease-in-out;
+}
+
+@keyframes suikaBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px) scale(1.1); }
+}
+
+.suika-canvas-wrap {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border: 4px solid #fed7aa;
+  background: linear-gradient(180deg, #fffbeb 0%, #fff7ed 100%);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.suika-danger-banner {
+  position: absolute;
+  top: 75px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  pointer-events: none;
+  font-size: 11px;
+  font-weight: 800;
+  color: #dc2626;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: dangerBlink 0.6s infinite alternate;
+}
+
+@keyframes dangerBlink {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.suika-evolution-chart {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 16px;
+  border: 1.5px solid #f1f5f9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  font-size: 14px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.suika-chart-arrow {
+  font-size: 9px;
+  color: #94a3b8;
+}
+
+.suika-footer-tips {
+  margin-top: 10px;
+  font-size: 11.5px;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Modal Overlay */
+.suika-modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: suikaFadeIn 0.3s ease-out;
+}
+
+@keyframes suikaFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.suika-modal-card {
+  background: white;
+  border-radius: 24px;
+  padding: 24px 20px;
+  width: 85%;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.3);
+  animation: suikaPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes suikaPop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.suika-modal-icon {
+  font-size: 50px;
+  margin-bottom: 8px;
+}
+
+.suika-modal-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #831843;
+  margin: 0 0 6px;
+}
+
+.suika-modal-score {
+  font-size: 28px;
+  font-weight: 900;
+  color: #ea580c;
+  margin: 0 0 8px;
+}
+
+.suika-modal-reward {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #fef08a;
+  color: #854d0e;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #fde047;
+}
+
+.suika-modal-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3);
+  transition: all 0.2s;
+}
+
+.suika-modal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(234, 88, 12, 0.45);
+}

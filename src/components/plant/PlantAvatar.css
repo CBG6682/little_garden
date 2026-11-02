@@ -532,6 +532,65 @@
   background: linear-gradient(135deg, #B0BEC5, #90A4AE);
 }
 
+/* ===== MEN LAM GLAZED CERAMIC POT ===== */
+.men-lam-pot-skin .pot-back,
+.men-lam-pot-skin .pot-front {
+  background: linear-gradient(135deg, #f0fdfa, #e0f2fe, #f8fafc);
+  border: 2px solid #0284c7;
+  box-shadow: inset 0 -5px 12px rgba(2, 132, 199, 0.15), 0 3px 10px rgba(2, 132, 199, 0.25);
+}
+.men-lam-pot-skin .pot-front::before {
+  content: '🌊';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  opacity: 0.7;
+}
+.men-lam-pot-skin .pot-front::after {
+  content: '';
+  position: absolute;
+  bottom: 12%;
+  left: 12%;
+  width: 76%;
+  height: 3px;
+  background: #0369a1;
+  opacity: 0.6;
+  border-radius: 2px;
+  box-shadow: 0 -8px 0 rgba(3, 105, 161, 0.4);
+}
+.men-lam-pot-skin .pot-back {
+  background: linear-gradient(135deg, #bae6fd, #7dd3fc);
+}
+
+/* ===== RAINBOW PASTEL POT ===== */
+.rainbow-pot-skin .pot-back,
+.rainbow-pot-skin .pot-front {
+  background: linear-gradient(135deg, #fbcfe8, #fef08a, #a7f3d0, #bae6fd, #e9d5ff);
+  background-size: 200% 200%;
+  animation: rainbowShift 6s ease infinite;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 -4px 10px rgba(244, 114, 182, 0.2), 0 3px 12px rgba(168, 85, 247, 0.25);
+}
+@keyframes rainbowShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.rainbow-pot-skin .pot-front::before {
+  content: '✨';
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  animation: sparkleTwinkle 2s infinite ease-in-out;
+}
+.rainbow-pot-skin .pot-back {
+  background: linear-gradient(135deg, #f472b6, #fbbf24, #34d399, #60a5fa);
+}
+
 
 /* ====================================================================
    GROW LIGHT — position controlled by inline style (top) per stage
@@ -755,3 +814,104 @@
 .nmhl3 { right: 12px; height: 45px; transform: rotate(22deg); z-index: 2; }
 .nmhl4 { left: 2px; height: 35px; transform: rotate(-42deg); z-index: 1; }
 .nmhl5 { right: 2px; height: 35px; transform: rotate(42deg); z-index: 1; }
+
+/* ====================================================================
+   6 NEW SPECIAL SPECIES
+   ==================================================================== */
+
+/* ===== Hoa Sen Mini ===== */
+.hoa-sen { position: relative; width: 85px; height: 90px; }
+.sen-stem { position: absolute; bottom: 0; left: 40px; width: 4px; height: 45px; background: #66BB6A; border-radius: 2px; }
+.sen-pad { position: absolute; background: radial-gradient(circle at 35% 35%, #81C784 20%, #388E3C 85%); border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.15); clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 55% 55%, 45% 55%, 0% 100%); }
+.sp1 { width: 34px; height: 26px; bottom: 5px; left: 5px; transform: rotate(-15deg); z-index: 1; }
+.sp2 { width: 38px; height: 30px; bottom: 8px; right: 4px; transform: rotate(20deg); z-index: 1; }
+.sp3 { width: 30px; height: 22px; bottom: 20px; left: 15px; transform: rotate(5deg); z-index: 2; }
+.sp4 { width: 28px; height: 20px; bottom: 2px; left: 30px; z-index: 2; }
+.sen-flower { position: absolute; top: 10px; left: 24px; width: 38px; height: 42px; z-index: 6; }
+.sen-petal { position: absolute; width: 16px; height: 28px; background: linear-gradient(to top, #FFFFFF 15%, #F48FB1 70%, #EC407A 100%); border-radius: 50% 50% 20% 20%; transform-origin: bottom center; box-shadow: 0 1px 4px rgba(236,64,122,0.25); }
+.sp-l1 { left: 4px; bottom: 0; transform: rotate(-35deg); height: 24px; }
+.sp-l2 { left: 9px; bottom: 2px; transform: rotate(-15deg); height: 28px; }
+.sp-r1 { right: 4px; bottom: 0; transform: rotate(35deg); height: 24px; }
+.sp-r2 { right: 9px; bottom: 2px; transform: rotate(15deg); height: 28px; }
+.sp-c { left: 12px; bottom: 4px; transform: rotate(0deg); height: 30px; z-index: 4; }
+.sen-center { position: absolute; bottom: 6px; left: 14px; width: 10px; height: 10px; background: radial-gradient(circle, #FFEE58 40%, #FBC02D 90%); border-radius: 50%; z-index: 5; box-shadow: 0 0 6px rgba(255,238,88,0.7); }
+.sen-dewdrop { position: absolute; top: 2px; right: 18px; font-size: 13px; animation: floatBubble 2s infinite ease-in-out; z-index: 7; }
+
+/* ===== Xương Rồng Tai Thỏ ===== */
+.xuong-rong-tai-tho { position: relative; width: 80px; height: 90px; }
+.xr-body { position: absolute; bottom: 0; left: 22px; width: 36px; height: 48px; background: radial-gradient(circle at 40% 30%, #81C784 20%, #43A047 70%, #2E7D32 100%); border-radius: 45% 45% 35% 35%; box-shadow: inset -2px -2px 6px rgba(0,0,0,0.2); z-index: 2; }
+.xr-ear { position: absolute; width: 22px; height: 36px; background: radial-gradient(circle at 40% 30%, #81C784 20%, #43A047 70%, #2E7D32 100%); border-radius: 50% 50% 40% 40%; box-shadow: inset -2px -2px 4px rgba(0,0,0,0.15); z-index: 1; }
+.xr-ear.left { top: 12px; left: 14px; transform: rotate(-25deg); }
+.xr-ear.right { top: 12px; right: 14px; transform: rotate(25deg); }
+.xr-dot { position: absolute; width: 4px; height: 4px; background: #FFF9C4; border-radius: 50%; box-shadow: 0 0 2px rgba(255,249,196,0.8); }
+.xr-body .xd1 { top: 12px; left: 8px; }
+.xr-body .xd2 { top: 22px; right: 10px; }
+.xr-body .xd3 { top: 32px; left: 14px; }
+.xr-ear .xd1 { top: 8px; left: 8px; }
+.xr-ear .xd2 { top: 18px; left: 10px; }
+.xr-flower { position: absolute; top: 2px; left: 32px; font-size: 16px; z-index: 5; animation: bounceSmall 2s infinite ease-in-out; }
+
+/* ===== Lan Hồ Điệp ===== */
+.lan-ho-diep { position: relative; width: 80px; height: 95px; }
+.lhd-stem { position: absolute; bottom: 0; left: 38px; width: 4px; height: 75px; background: linear-gradient(to top, #388E3C, #81C784); border-radius: 2px; transform: rotate(8deg); }
+.lhd-leaf { position: absolute; bottom: 2px; width: 28px; height: 20px; background: linear-gradient(135deg, #1B5E20, #388E3C); border-radius: 4px 20px 4px 20px; }
+.lhd-leaf.l1 { left: 10px; transform: rotate(-20deg); }
+.lhd-leaf.l2 { right: 10px; transform: rotate(20deg) scaleX(-1); }
+.lhd-flower { position: absolute; width: 30px; height: 28px; z-index: 4; }
+.flw1 { top: 8px; right: 12px; }
+.flw2 { top: 30px; left: 18px; transform: scale(0.9); }
+.flw3 { top: 52px; right: 20px; transform: scale(0.8); }
+.lhd-petal { position: absolute; background: linear-gradient(135deg, #E1BEE7, #BA68C8 60%, #8E24AA 100%); border-radius: 50%; box-shadow: 0 1px 3px rgba(142,36,170,0.3); }
+.p-top { top: 0; left: 9px; width: 12px; height: 14px; }
+.p-left { top: 6px; left: 0; width: 14px; height: 12px; transform: rotate(-15deg); }
+.p-right { top: 6px; right: 0; width: 14px; height: 12px; transform: rotate(15deg); }
+.p-lip { bottom: 2px; left: 9px; width: 12px; height: 10px; background: radial-gradient(circle, #FFD54F 35%, #D81B60 85%); border-radius: 40% 40% 60% 60%; z-index: 2; }
+
+/* ===== Hướng Dương Lùn ===== */
+.huong-duong { position: relative; width: 80px; height: 95px; }
+.hd-stem { position: absolute; bottom: 0; left: 37px; width: 6px; height: 50px; background: linear-gradient(to top, #2E7D32, #4CAF50); border-radius: 3px; }
+.hd-leaf { position: absolute; width: 22px; height: 14px; background: #388E3C; border-radius: 2px 14px 2px 14px; }
+.hd-leaf.left { bottom: 18px; left: 15px; transform: rotate(-25deg); }
+.hd-leaf.right { bottom: 26px; right: 15px; transform: rotate(25deg) scaleX(-1); }
+.hd-head { position: absolute; top: 8px; left: 17px; width: 46px; height: 46px; z-index: 4; }
+.hd-petal { position: absolute; top: 13px; left: 17px; width: 12px; height: 20px; background: linear-gradient(to top, #FFA000, #FFD54F, #FFEE58); border-radius: 50% 50% 20% 20%; transform-origin: center bottom; }
+.hd-petal.p1 { transform: rotate(0deg) translateY(-14px); }
+.hd-petal.p2 { transform: rotate(45deg) translateY(-14px); }
+.hd-petal.p3 { transform: rotate(90deg) translateY(-14px); }
+.hd-petal.p4 { transform: rotate(135deg) translateY(-14px); }
+.hd-petal.p5 { transform: rotate(180deg) translateY(-14px); }
+.hd-petal.p6 { transform: rotate(225deg) translateY(-14px); }
+.hd-petal.p7 { transform: rotate(270deg) translateY(-14px); }
+.hd-petal.p8 { transform: rotate(315deg) translateY(-14px); }
+.hd-disc { position: absolute; top: 11px; left: 11px; width: 24px; height: 24px; background: radial-gradient(circle, #5D4037 45%, #3E2723 90%); border-radius: 50%; z-index: 5; box-shadow: inset 0 0 4px rgba(0,0,0,0.4); }
+.hd-glow { position: absolute; top: 0; right: 8px; font-size: 14px; animation: pulseGlow 1.8s infinite ease-in-out; }
+
+/* ===== Sen Đá Móng Rồng ===== */
+.sen-da-mong-rong { position: relative; width: 80px; height: 85px; }
+.mr-claw { position: absolute; bottom: 0; width: 12px; height: 50px; background: repeating-linear-gradient(to top, #1B5E20, #1B5E20 6px, #FFFFFF 6px, #FFFFFF 8px, #2E7D32 8px, #2E7D32 14px); border-radius: 6px 6px 2px 2px; transform-origin: bottom center; box-shadow: inset -1px -1px 3px rgba(0,0,0,0.3); }
+.mr-claw.c1 { left: 34px; height: 60px; z-index: 4; }
+.mr-claw.c2 { left: 24px; height: 52px; transform: rotate(-18deg); z-index: 3; }
+.mr-claw.c3 { right: 24px; height: 52px; transform: rotate(18deg); z-index: 3; }
+.mr-claw.c4 { left: 14px; height: 42px; transform: rotate(-35deg); z-index: 2; }
+.mr-claw.c5 { right: 14px; height: 42px; transform: rotate(35deg); z-index: 2; }
+.mr-claw.c6 { left: 5px; height: 32px; transform: rotate(-55deg); z-index: 1; }
+.mr-claw.c7 { right: 5px; height: 32px; transform: rotate(55deg); z-index: 1; }
+
+/* ===== Mai Vàng Bonsai ===== */
+.mai-vang { position: relative; width: 80px; height: 95px; }
+.mv-trunk { position: absolute; bottom: 0; left: 34px; width: 10px; height: 55px; background: linear-gradient(135deg, #4E342E, #795548 60%, #3E2723 100%); border-radius: 5px 3px 2px 2px; transform: skewX(-12deg); z-index: 2; }
+.mv-branch.b1 { position: absolute; bottom: 35px; left: 18px; width: 22px; height: 6px; background: #5D4037; border-radius: 3px; transform: rotate(-25deg); z-index: 1; }
+.mv-branch.b2 { position: absolute; bottom: 45px; right: 14px; width: 24px; height: 6px; background: #5D4037; border-radius: 3px; transform: rotate(20deg); z-index: 1; }
+.mv-flower { position: absolute; font-size: 16px; filter: drop-shadow(0 1px 2px rgba(255,193,7,0.5)); z-index: 5; }
+.mv-flw1 { top: 12px; left: 8px; }
+.mv-flw2 { top: 18px; right: 12px; }
+.mv-flw3 { top: 38px; left: 12px; }
+.mv-flw4 { top: 2px; left: 28px; }
+.mv-bud { position: absolute; width: 7px; height: 7px; background: radial-gradient(circle, #D32F2F 40%, #FFB300 90%); border-radius: 50%; z-index: 4; }
+.mb1 { top: 28px; right: 28px; }
+.mb2 { top: 48px; right: 10px; }
+
+@keyframes bounceSmall {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}

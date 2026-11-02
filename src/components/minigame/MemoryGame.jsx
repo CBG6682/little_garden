@@ -2,10 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import './MemoryGame.css';
 import { sfxMerge, sfxReward } from '../../utils/audio.js';
 
-const EMOJIS = ['🐹', '🌱', '💧', '☀️', '🌸', '🍓', '🥕', '🍎'];
+const ALL_EMOJIS = [
+  '🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯',
+  '🦁','🐮','🐷','🐸','🐵','🐔','🐧','🐦','🐤','🦆',
+  '🦅','🦉','🦇','🐺','🐗','🐴','🦄','🐝','🐛','🦋',
+  '🐌','🐞','🐜','🦟','🦗','🕷','🦂','🐢','🐍','🦎',
+  '🦖','🦕','🐙','🦑','🦐','🦞','🦀','🐡','🐠','🐟'
+];
 
 const generateBoard = () => {
-  const deck = [...EMOJIS, ...EMOJIS]
+  const shuffledEmojis = [...ALL_EMOJIS].sort(() => Math.random() - 0.5);
+  const selectedEmojis = shuffledEmojis.slice(0, 16);
+  
+  const deck = [...selectedEmojis, ...selectedEmojis, ...selectedEmojis, ...selectedEmojis]
     .sort(() => Math.random() - 0.5)
     .map((emoji, idx) => ({ id: idx, emoji, isFlipped: false, isMatched: false }));
   return deck;
@@ -14,7 +23,7 @@ const generateBoard = () => {
 const MemoryGame = ({ onReward }) => {
   const [board, setBoard] = useState(generateBoard());
   const [flippedCards, setFlippedCards] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(180);
   const [isPlaying, setIsPlaying] = useState(false);
   const [matches, setMatches] = useState(0);
   const matchesRef = useRef(0);
@@ -33,7 +42,7 @@ const MemoryGame = ({ onReward }) => {
   const startGame = () => {
     setBoard(generateBoard());
     setFlippedCards([]);
-    setTimeLeft(60);
+    setTimeLeft(180);
     setMatches(0);
     matchesRef.current = 0;
     setIsPlaying(true);
@@ -44,8 +53,8 @@ const MemoryGame = ({ onReward }) => {
     setIsPlaying(false);
     setGameOver(true);
     const finalMatches = matchesRef.current;
-    // Balanced high-grind reward: matches * 2 + perfect bonus of 10 coins
-    const coinsEarned = finalMatches * 2 + (finalMatches === 8 ? 10 : 0);
+    // Balanced high-grind reward: matches * 1 + perfect bonus of 30 coins
+    const coinsEarned = finalMatches * 1 + (finalMatches === 32 ? 30 : 0);
     onReward(coinsEarned);
     sfxReward();
   };
@@ -71,7 +80,7 @@ const MemoryGame = ({ onReward }) => {
           setMatches(prev => {
             const newMatches = prev + 1;
             matchesRef.current = newMatches;
-            if (newMatches === 8) endGame();
+            if (newMatches === 32) endGame();
             return newMatches;
           });
         }, 500);
@@ -90,7 +99,7 @@ const MemoryGame = ({ onReward }) => {
     <div className="memory-game">
       <div className="game-header">
         <div className="timer">⏳ {timeLeft}s</div>
-        <div className="matches">Cặp khớp: {matches}/8</div>
+        <div className="matches">Cặp khớp: {matches}/32</div>
       </div>
 
       {!isPlaying && !gameOver && (
@@ -122,8 +131,8 @@ const MemoryGame = ({ onReward }) => {
 
       {gameOver && (
         <div className="game-over">
-          <h3>{matches === 8 ? "Bạn Đã Thắng! 🎉" : "Hết Giờ! ⏱️"}</h3>
-          <p>Bạn nhận được {matches * 2 + (matches === 8 ? 10 : 0)} xu!</p>
+          <h3>{matches === 32 ? "Bạn Đã Thắng! 🎉" : "Hết Giờ! ⏱️"}</h3>
+          <p>Bạn nhận được {matches * 1 + (matches === 32 ? 30 : 0)} xu!</p>
           <button onClick={() => setGameOver(false)} className="close-btn">Đóng</button>
         </div>
       )}

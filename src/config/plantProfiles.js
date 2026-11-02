@@ -224,6 +224,68 @@ export const PLANT_PROFILES = {
     overwaterSensitivity: 0.9,
     core: { soilMoisture: 70, nutrients: 75, sunlight: 50, humidity: 65 },
   },
+
+  // ============ 6 NEW SPECIAL SPECIES ============
+  hoa_sen_mini: {
+    nameVi: 'Hoa Sen Mini',
+    daysPerStage: 8,
+    purchasePrice: 120,
+    moistureDecay: 2.0,
+    nutrientDecay: 0.8,
+    lightNeed: 0.7,
+    overwaterSensitivity: 0.2, // Loves water
+    core: { soilMoisture: 80, nutrients: 80, sunlight: 70, humidity: 75 },
+  },
+  xuong_rong_tai_tho: {
+    nameVi: 'Xương Rồng Tai Thỏ',
+    daysPerStage: 12,
+    purchasePrice: 85,
+    moistureDecay: 0.8,
+    nutrientDecay: 0.5,
+    lightNeed: 0.9,
+    overwaterSensitivity: 2.0, // Sensitive to overwater
+    core: { soilMoisture: 35, nutrients: 50, sunlight: 85, humidity: 30 },
+  },
+  lan_ho_diep: {
+    nameVi: 'Lan Hồ Điệp',
+    daysPerStage: 14,
+    purchasePrice: 180,
+    moistureDecay: 1.4,
+    nutrientDecay: 0.8,
+    lightNeed: 0.6,
+    overwaterSensitivity: 1.2,
+    core: { soilMoisture: 60, nutrients: 85, sunlight: 60, humidity: 65 },
+  },
+  huong_duong_lun: {
+    nameVi: 'Hướng Dương Lùn',
+    daysPerStage: 7,
+    purchasePrice: 95,
+    moistureDecay: 2.2,
+    nutrientDecay: 1.0,
+    lightNeed: 0.95,
+    overwaterSensitivity: 0.9,
+    core: { soilMoisture: 65, nutrients: 75, sunlight: 90, humidity: 50 },
+  },
+  sen_da_mong_rong: {
+    nameVi: 'Sen Đá Móng Rồng',
+    daysPerStage: 10,
+    purchasePrice: 110,
+    moistureDecay: 1.0,
+    nutrientDecay: 0.6,
+    lightNeed: 0.7,
+    overwaterSensitivity: 1.5,
+    core: { soilMoisture: 40, nutrients: 60, sunlight: 70, humidity: 35 },
+  },
+  mai_vang_bonsai: {
+    nameVi: 'Mai Vàng Bonsai',
+    daysPerStage: 15,
+    purchasePrice: 220,
+    moistureDecay: 1.5,
+    nutrientDecay: 0.9,
+    lightNeed: 0.8,
+    overwaterSensitivity: 1.0,
+    core: { soilMoisture: 55, nutrients: 85, sunlight: 80, humidity: 60 },
+  },
 };
 
 /**
@@ -237,19 +299,23 @@ export const getSeedPrice = (speciesId) => {
  * Stage-based sell price as percentage of purchase price.
  *   seed   → 40%
  *   sprout → 80%
- *   mature → 120%
+ *   mature → 120% + LV bonus (LV * 2)
  *   dead   → 0
+ *
+ * Plants with a level (only counted from mature stage onward,
+ * +1 LV every 3 days) receive an extra LV * 2 coins on top.
  */
 export const getPlantSellPrice = (plant) => {
   const profile = PLANT_PROFILES[plant.id];
   if (!profile) return 0;
   const base = profile.purchasePrice;
   const stage = plant.status?.growthStage || 'seed';
+  const lvBonus = (plant.level || 0) * 2;
   switch (stage) {
     case 'seed':   return Math.floor(base * 0.40);
     case 'sprout': return Math.floor(base * 0.80);
     case 'plant':
-    case 'mature': return Math.floor(base * 1.20);
+    case 'mature': return Math.floor(base * 1.20) + lvBonus;
     case 'dead':   return 0;
     default:       return Math.floor(base * 0.40);
   }

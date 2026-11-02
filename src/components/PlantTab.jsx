@@ -1,53 +1,29 @@
 import React from 'react';
+import './PlantTab.css';
 import PlantAvatar from './plant/PlantAvatar.jsx';
 import { getPlantSellPrice } from '../config/plantProfiles.js';
 
-// Helper components
-function StatBar({ label, value, reverseColor = false }) {
-  let color = value > 60 ? 'var(--green)' : value > 30 ? 'var(--yellow)' : 'var(--red)';
+// Modern Stat Bar component
+function ModernStatBar({ icon, label, value, reverseColor = false }) {
+  const safeVal = Math.max(0, Math.min(100, Math.floor(value || 0)));
+  let color = safeVal > 60 ? '#10b981' : safeVal > 30 ? '#f59e0b' : '#ef4444';
   if (reverseColor) {
-    color = value > 70 ? 'var(--red)' : value > 30 ? 'var(--yellow)' : 'var(--green)';
+    color = safeVal > 70 ? '#ef4444' : safeVal > 30 ? '#f59e0b' : '#10b981';
   }
+
   return (
-    <div style={{ textAlign: 'left', marginBottom: '6px' }}>
-      <div style={{ fontSize: '11px', marginBottom: '2px', color: 'var(--text)', fontWeight: 'bold' }}>
-        {label}: {Math.floor(value)}%
+    <div className="plant-stat-row">
+      <div className="plant-stat-meta">
+        <span>{icon} {label}</span>
+        <strong className="plant-stat-val">{safeVal}%</strong>
       </div>
-      <div style={{ height: '8px', width: '100%', backgroundColor: '#eee', borderRadius: '4px', overflow: 'hidden' }}>
-        <div style={{ height: '100%', width: `${value}%`, backgroundColor: color, transition: 'width 0.3s' }}></div>
+      <div className="plant-stat-track">
+        <div
+          className="plant-stat-fill"
+          style={{ width: `${safeVal}%`, backgroundColor: color }}
+        ></div>
       </div>
     </div>
-  );
-}
-
-function ActionButton({ label, icon, onClick, disabled, style }) {
-  return (
-    <button 
-      onClick={onClick} 
-      disabled={disabled}
-      style={{ 
-        padding: '8px 4px', 
-        backgroundColor: disabled ? '#f1f1f1' : 'var(--pink-light)', 
-        color: disabled ? '#9e9e9e' : 'var(--pink-dark)', 
-        border: 'none', 
-        borderRadius: '10px', 
-        fontWeight: 'bold', 
-        cursor: disabled ? 'not-allowed' : 'pointer', 
-        flex: 1, 
-        boxShadow: '0 2px 5px rgba(0,0,0,0.05)', 
-        fontSize: '11px',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '4px',
-        opacity: disabled ? 0.6 : 1,
-        transition: 'all 0.2s',
-        ...style 
-      }}
-    >
-      <span style={{ fontSize: '16px' }}>{icon}</span>
-      {label}
-    </button>
   );
 }
 
@@ -84,203 +60,246 @@ const PlantTab = ({
   };
 
   return (
-    <div style={{ padding: 0 }}>
+    <div className="plant-tab-container">
+      {/* BALCONY HEADER */}
+      <div className="balcony-header">
+        <h2>
+          <span>🌿 Vườn Ban Công Tươi Mát 🌸</span>
+        </h2>
+        <p>Chăm sóc các chậu cây, kích hoa và thu hoạch kiếm xu</p>
+        {(Boolean(gameState.inventory?.tools?.smart_hygrometer) || Boolean(gameState.inventory?.tools?.mozart_speaker)) && (
+          <div className="balcony-tools-active-bar">
+            {Boolean(gameState.inventory?.tools?.smart_hygrometer) && (
+              <span className="balcony-tool-badge">🌡️ Ẩm kế tự động: Ổn định</span>
+            )}
+            {Boolean(gameState.inventory?.tools?.mozart_speaker) && (
+              <span className="balcony-tool-badge">🎵 Loa Mozart: Đang phát</span>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* BALCONY SCENE */}
-      <div className="balcony-scene">
-        <div className={`city-background ${isDay ? 'day' : 'night'}`}>
-          {/* Sky elements clipped inside */}
-          <div className="sky-clip">
-            <div className="sun-moon"></div>
-            <div className="clouds">
-              <div className="cloud c1"></div>
-              <div className="cloud c2"></div>
+      <div className="balcony-wrapper">
+        <div className="balcony-scene">
+          <div className={`city-background ${isDay ? 'day' : 'night'}`}>
+            {/* Sky elements clipped inside */}
+            <div className="sky-clip">
+              <div className="sun-moon"></div>
+              <div className="clouds">
+                <div className="cloud c1"></div>
+                <div className="cloud c2"></div>
+              </div>
+              <div className="stars">
+                <div className="star s1"></div>
+                <div className="star s2"></div>
+                <div className="star s3"></div>
+              </div>
+              <div className="buildings">
+                <div className="building" style={{ height: '70px' }}><div className="window w1"></div><div className="window w2"></div></div>
+                <div className="building" style={{ height: '100px' }}><div className="window w3"></div><div className="window w4"></div></div>
+                <div className="building" style={{ height: '55px' }}><div className="window w1"></div></div>
+                <div className="building" style={{ height: '80px' }}><div className="window w2"></div><div className="window w3"></div></div>
+                <div className="building" style={{ height: '45px' }}></div>
+                <div className="building" style={{ height: '90px' }}><div className="window w4"></div></div>
+              </div>
             </div>
-            <div className="stars">
-              <div className="star s1"></div>
-              <div className="star s2"></div>
-              <div className="star s3"></div>
-            </div>
-            <div className="buildings">
-              <div className="building" style={{ height: '70px' }}><div className="window w1"></div><div className="window w2"></div></div>
-              <div className="building" style={{ height: '100px' }}><div className="window w3"></div><div className="window w4"></div></div>
-              <div className="building" style={{ height: '55px' }}><div className="window w1"></div></div>
-              <div className="building" style={{ height: '80px' }}><div className="window w2"></div><div className="window w3"></div></div>
-              <div className="building" style={{ height: '45px' }}></div>
-              <div className="building" style={{ height: '90px' }}><div className="window w4"></div></div>
-            </div>
-          </div>
 
-          {/* PLANTS sitting on top of the rail */}
-          <div className="balcony-plants-row">
-            {Array.from({ length: 6 }).map((_, idx) => {
-              const plant = plants[idx];
-              const isSelected = selectedPlantIdx === idx;
-              return (
-                <div
-                  key={idx}
-                  className={`balcony-plant-slot ${isSelected ? 'selected' : ''}`}
-                  onClick={() => plant && setSelectedPlantIdx(isSelected ? null : idx)}
-                  style={{ position: 'relative' }}
-                >
-                  {plant ? (
-                    <PlantAvatar
-                      species={plant.id}
-                      stage={plant.status.growthStage}
-                      isWatering={wateringStates[idx]}
-                      potSkin={gameState.activeCosmetics.plantPots}
-                      isBlooming={plant.isBlooming || false}
-                      hasGrowLight={plant.hasGrowLight || false}
-                    />
-                  ) : (
-                    <div 
-                      className="empty-plant-slot" 
-                      onClick={(e) => { e.stopPropagation(); setIsShopOpen(true); }}
-                    >
-                      +
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* WOODEN BALCONY SHELF */}
-          <div className="balcony-shelf">
-            <div className="balcony-top-rail"></div>
-            <div className="balcony-posts-row">
-              {Array.from({ length: 6 }).map((_, i) => <div key={i} className="balcony-post"></div>)}
+            {/* PLANTS sitting on top of the rail */}
+            <div className="balcony-plants-row">
+              {Array.from({ length: 6 }).map((_, idx) => {
+                const plant = plants[idx];
+                const isSelected = selectedPlantIdx === idx;
+                return (
+                  <div
+                    key={idx}
+                    className={`balcony-plant-slot ${isSelected ? 'selected' : ''}`}
+                    onClick={() => plant && setSelectedPlantIdx(isSelected ? null : idx)}
+                  >
+                    {plant ? (
+                      <PlantAvatar
+                        species={plant.id}
+                        stage={plant.status.growthStage}
+                        isWatering={wateringStates[idx]}
+                        potSkin={gameState.activeCosmetics.plantPots}
+                        isBlooming={plant.isBlooming || false}
+                        hasGrowLight={plant.hasGrowLight || false}
+                      />
+                    ) : (
+                      <div 
+                        className="empty-plant-slot" 
+                        onClick={(e) => { e.stopPropagation(); setIsShopOpen(true); }}
+                        title="Trồng cây mới"
+                      >
+                        +
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
-            <div className="balcony-floor"></div>
+
+            {/* WOODEN BALCONY SHELF */}
+            <div className="balcony-shelf">
+              <div className="balcony-top-rail"></div>
+              <div className="balcony-posts-row">
+                {Array.from({ length: 6 }).map((_, i) => <div key={i} className="balcony-post"></div>)}
+              </div>
+              <div className="balcony-floor"></div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* PERMANENT CARE STATION */}
+      {/* MODERN CARE STATION */}
       {selectedPlant ? (
-        <div className="care-station">
-          <div className="care-station-header">
-            <h3 className="care-station-title">🌿 Trạm Chăm Sóc: {selectedPlant.nameVi}</h3>
-            <span className={`care-station-badge ${selectedPlant.status.growthStage}`}>
+        <div className="modern-care-station">
+          <div className="care-header-modern">
+            <div className="care-title-wrap">
+              <h3 className="care-plant-name">🌿 {selectedPlant.nameVi}</h3>
+              {(selectedPlant.level || 0) > 0 && (
+                <span className="plant-level-badge">⭐ LV {selectedPlant.level}</span>
+              )}
+            </div>
+            <span className={`plant-stage-badge ${selectedPlant.status.growthStage}`}>
               {getStageLabel(selectedPlant.status.growthStage)}
             </span>
           </div>
 
           {selectedPlant.status.growthStage === 'dead' && (
             <div className="care-station-dead-banner">
-              💀 Cây đã héo úa hoàn toàn do thiếu sự chăm sóc. Bạn không thể thực hiện các hành động chăm sóc nữa.
+              💀 Cây đã héo úa hoàn toàn do lâu ngày thiếu chăm sóc. Hãy dọn dẹp để trồng hạt giống mới nhé!
             </div>
           )}
 
-          {/* Detailed stats grids */}
-          <div className="care-station-grid">
-            <StatBar label="Độ ẩm đất" value={selectedPlant.core.soilMoisture} />
-            <StatBar label="Chất dinh dưỡng" value={selectedPlant.core.nutrients} />
-            <StatBar label="Sức sống (Máu)" value={selectedPlant.status.vitality} />
-            <StatBar label="Độ tơi xốp đất" value={selectedPlant.advanced.aeration || 70} />
-            <StatBar label="Ánh sáng hấp thụ" value={selectedPlant.core.sunlight || 60} />
-            <StatBar label="Vệ sinh chậu" value={selectedPlant.status.cleanliness || 100} />
+          {/* Detailed stats grid */}
+          <div className="plant-stats-grid">
+            <ModernStatBar icon="💧" label="Độ ẩm đất" value={selectedPlant.core.soilMoisture} />
+            <ModernStatBar icon="🧫" label="Dinh dưỡng" value={selectedPlant.core.nutrients} />
+            <ModernStatBar icon="❤️" label="Sức sống" value={selectedPlant.status.vitality} />
+            <ModernStatBar icon="⛏️" label="Tơi xốp đất" value={selectedPlant.advanced?.aeration || 70} />
+            <ModernStatBar icon="☀️" label="Ánh sáng" value={selectedPlant.core?.sunlight || 60} />
+            <ModernStatBar icon="✨" label="Vệ sinh chậu" value={selectedPlant.status?.cleanliness || 100} />
           </div>
 
           {/* Row 1 Action Buttons */}
-          <div className="care-station-actions">
-            <ActionButton 
-              label="Tưới Nước" 
-              icon="💧" 
-              onClick={() => handleWaterPlant(selectedPlantIdx)} 
-              disabled={selectedPlant.status.growthStage === 'dead'} 
-            />
-            <ActionButton 
-              label="Bón Phân" 
-              icon="🧫" 
-              onClick={() => handleFertilizePlant(selectedPlantIdx)} 
-              disabled={selectedPlant.status.growthStage === 'dead'} 
-            />
-            <ActionButton 
-              label="Diệt Sâu" 
-              icon="🐛" 
-              onClick={() => handlePestControl(selectedPlantIdx)} 
-              disabled={selectedPlant.status.growthStage === 'dead'} 
-            />
-            <ActionButton 
-              label="Cắt Tỉa" 
-              icon="✂️" 
-              onClick={() => handlePrune(selectedPlantIdx)} 
-              disabled={selectedPlant.status.growthStage === 'dead'} 
-            />
+          <div className="plant-actions-grid">
+            <button
+              className="plant-action-btn btn-water"
+              onClick={() => handleWaterPlant(selectedPlantIdx)}
+              disabled={selectedPlant.status.growthStage === 'dead'}
+            >
+              <span className="btn-icon">💧</span>
+              <span className="btn-text">Tưới nước<br/>(5💰)</span>
+            </button>
+
+            <button
+              className="plant-action-btn btn-fert"
+              onClick={() => handleFertilizePlant(selectedPlantIdx)}
+              disabled={selectedPlant.status.growthStage === 'dead'}
+            >
+              <span className="btn-icon">🧫</span>
+              <span className="btn-text">Bón phân<br/>(25💰)</span>
+            </button>
+
+            <button
+              className="plant-action-btn btn-pest"
+              onClick={() => handlePestControl(selectedPlantIdx)}
+              disabled={selectedPlant.status.growthStage === 'dead'}
+            >
+              <span className="btn-icon">🐛</span>
+              <span className="btn-text">Diệt sâu<br/>(10💰)</span>
+            </button>
+
+            <button
+              className="plant-action-btn btn-prune"
+              onClick={() => handlePrune(selectedPlantIdx)}
+              disabled={selectedPlant.status.growthStage === 'dead'}
+            >
+              <span className="btn-icon">✂️</span>
+              <span className="btn-text">Cắt tỉa<br/>lá úa</span>
+            </button>
           </div>
 
           {/* Row 2 Action Buttons */}
-          <div className="care-station-actions-row2">
-            <ActionButton 
-              label="Xới Đất" 
-              icon="⛏️" 
-              onClick={() => handleTillSoil(selectedPlantIdx)} 
-              disabled={selectedPlant.status.growthStage === 'dead'} 
-            />
-            <ActionButton 
-              label="Tắm Nắng" 
-              icon="☀️" 
-              onClick={() => handleSunbathe(selectedPlantIdx)} 
-              disabled={selectedPlant.status.growthStage === 'dead'} 
-            />
-            <ActionButton 
-              label="Hát Cho Cây" 
-              icon="🎵" 
-              onClick={() => handleSingToPlant(selectedPlantIdx)} 
-              disabled={selectedPlant.status.growthStage === 'dead'} 
-            />
-            <ActionButton 
-              label={selectedPlant.hasGrowLight ? 'Tắt Đèn' : 'Bật Đèn'} 
-              icon="💡" 
-              onClick={() => handleToggleGrowLight(selectedPlantIdx)} 
+          <div className="plant-actions-grid">
+            <button
+              className="plant-action-btn btn-till"
+              onClick={() => handleTillSoil(selectedPlantIdx)}
               disabled={selectedPlant.status.growthStage === 'dead'}
-              style={selectedPlant.hasGrowLight ? { background: '#7C4DFF', color: 'white' } : {}}
-            />
+            >
+              <span className="btn-icon">⛏️</span>
+              <span className="btn-text">Xới đất<br/>tơi xốp</span>
+            </button>
+
+            <button
+              className="plant-action-btn btn-sun"
+              onClick={() => handleSunbathe(selectedPlantIdx)}
+              disabled={selectedPlant.status.growthStage === 'dead'}
+            >
+              <span className="btn-icon">☀️</span>
+              <span className="btn-text">Tắm nắng<br/>quang hợp</span>
+            </button>
+
+            <button
+              className="plant-action-btn btn-sing"
+              onClick={() => handleSingToPlant(selectedPlantIdx)}
+              disabled={selectedPlant.status.growthStage === 'dead'}
+            >
+              <span className="btn-icon">🎵</span>
+              <span className="btn-text">Hát ru<br/>cho cây</span>
+            </button>
+
+            <button
+              className={`plant-action-btn btn-light ${selectedPlant.hasGrowLight ? 'light-on' : ''}`}
+              onClick={() => handleToggleGrowLight(selectedPlantIdx)}
+              disabled={selectedPlant.status.growthStage === 'dead'}
+            >
+              <span className="btn-icon">💡</span>
+              <span className="btn-text">{selectedPlant.hasGrowLight ? 'Tắt đèn' : 'Bật đèn'}</span>
+            </button>
           </div>
 
-          {/* Sell Row */}
-          <div className="care-station-footer">
-            <div style={{ fontWeight: 'bold', fontSize: '13px', color: 'var(--text)' }}>
+          {/* Sell / Harvest Footer */}
+          <div className="care-station-footer-modern">
+            <div className="plant-value-tag">
               {selectedPlant.status.growthStage === 'dead' ? (
-                <span style={{ color: 'var(--red)' }}>Giá trị: 0 xu 💰</span>
+                <span style={{ color: '#ef4444' }}>Giá trị: 0 xu 💰</span>
               ) : (
-                <span style={{ color: 'var(--green)' }}>Giá trị: {getPlantSellPrice(selectedPlant)} xu 💰</span>
+                <>
+                  <span>Giá bán:</span>
+                  <span className="val-coins">{getPlantSellPrice(selectedPlant)} 💰</span>
+                  {(selectedPlant.level || 0) > 0 && (
+                    <span className="val-bonus">
+                      +{(selectedPlant.level || 0) * 2} xu (LV {selectedPlant.level})
+                    </span>
+                  )}
+                </>
               )}
             </div>
-            <button 
-              className="sell-btn" 
-              style={{ width: 'auto', padding: '6px 20px' }}
+
+            <button
+              className={`modern-sell-btn ${selectedPlant.status.growthStage === 'dead' ? 'clean-dead' : 'sell-active'}`}
               onClick={() => handleSellPlant(selectedPlantIdx)}
             >
-              {selectedPlant.status.growthStage === 'dead' ? '🗑️ Dọn dẹp chậu' : '💸 Bán cây'}
+              {selectedPlant.status.growthStage === 'dead' ? '🗑️ Dọn dẹp chậu' : '💸 Bán thu hoạch'}
             </button>
           </div>
         </div>
       ) : (
-        <div className="care-station empty">
-          <div style={{ fontSize: '32px', marginBottom: '8px' }}>🌿</div>
-          <div style={{ fontSize: '13px', fontWeight: 'bold' }}>Trạm Chăm Sóc Cây Trồng</div>
-          <p style={{ margin: '4px 0 0', fontSize: '11px', textAlign: 'center' }}>
-            Chọn một chậu cây trên ban công ở trên để bắt đầu chăm sóc chi tiết.
+        <div className="modern-care-station empty">
+          <div style={{ fontSize: '40px', marginBottom: '8px' }}>🪴</div>
+          <h3 style={{ margin: '0 0 6px', color: '#16a34a', fontSize: '16px' }}>Trạm Chăm Sóc Cây Cảnh</h3>
+          <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
+            Nhấn vào một chậu cây trên ban công để kiểm tra độ ẩm, bón phân và chăm sóc!
           </p>
         </div>
       )}
 
-      {/* Button to open Shop to buy more plants */}
-      <div style={{ textAlign: 'center', padding: '15px 20px' }}>
-        <button 
-          onClick={() => setIsShopOpen(true)} 
-          style={{ 
-            padding: '10px 20px', 
-            backgroundColor: 'var(--green)', 
-            color: 'white', 
-            border: 'none', 
-            borderRadius: '15px', 
-            cursor: 'pointer', 
-            fontWeight: 'bold' 
-          }}
-        >
-          🛒 Mua Thêm Cây
+      {/* Button to open Shop to buy seeds */}
+      <div className="buy-more-banner">
+        <button className="buy-more-btn" onClick={() => setIsShopOpen(true)}>
+          🛒 Mua Thêm Hạt Giống & Cây Cảnh
         </button>
       </div>
     </div>
