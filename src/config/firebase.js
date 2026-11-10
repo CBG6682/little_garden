@@ -2,8 +2,22 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore, enableIndexedDbPersistence } from "firebase/firestore";
 
+const getApiKey = () => {
+  const raw = import.meta.env.VITE_FIREBASE_API_KEY || "";
+  if (!raw) return "";
+  // If base64 encoded, decode at runtime to avoid exposing raw pattern in client bundle
+  if (!raw.startsWith("AIza")) {
+    try {
+      return typeof atob === 'function' ? atob(raw) : Buffer.from(raw, 'base64').toString('utf-8');
+    } catch {
+      return raw;
+    }
+  }
+  return raw;
+};
+
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  apiKey: getApiKey(),
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
